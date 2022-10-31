@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{>head}}
+<link href="/css/collaborator.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        {{>header}}
+        <div class="container2">
+            <a href="/">Home</a>
+            <a href="about">About</a>
+            <a href="login" id="login">Logout</a>
+            <a id="delete" onclick="openModal('Modal')">Delete account</a>
+        </div>
+    </header>
+    <div id="Modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>Are you sure you want to delete your account?</p>
+                </div>
+                <div class="modal-body">
+                    <button id="yes">Yes</a></button>
+                    <button id="no" onclick="closeModal('Modal')">No</button>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-grid">
+                <button class="tabLinks" onclick="openContent(event, 'profile')">Profile information</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid">
+                <button class="tabLinks" onclick="openContent(event, 'connected')">Connected business owners</button>
+            </div>
+        </div>
+    </div><br>
+    <div id="profile" class="tabContent">
+        {{#profile}}
+            Name: {{name}}<br><br>
+            Email address: {{email}}<br><br>
+            Business category: {{category}}<br><br>
+            Services: {{services}}<br><br>
+            <button id="edit" onclick="openModal1()">Edit profile</button>
+        {{/profile}}
+        {{^profile}}
+            <p>No entry</p>
+        {{/profile}}
+        <div id="Modal1" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a onclick = "closeModal1()">< Back</a><br><br>
+                </div>
+                <div class="modal-body">
+                    <form action="/updateCollaborator/{{name}}/{{email}}/{{services}}" method="post">
+                        <label for="name">Name: </label>
+                        <input type="text" name="name" value="{{name}}"><br><br>
+                        <label for="email">Email address: </label>
+                        <input type="email" name="email" value="{{email}}"><br><br>
+                        <label for="services">Services: </label>
+                        <input type="text" name="services" value="{{services}}" multiple><br><br>
+                        <button id="save">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="connected" class="tabContent">Connected</div>
+</body>
+</html>

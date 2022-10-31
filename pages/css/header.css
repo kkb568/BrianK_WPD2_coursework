@@ -1,0 +1,45 @@
+body {
+    overflow-x: hidden;
+}
+
+#two-hands {
+    width: 15%;
+}
+
+#helping-hand {
+    width: 50%;
+    margin-left:10%;
+}
+
+.container2 {
+    background-color: #353CDD;
+    margin-left:-1%;
+    width:102%;
+    padding:2%;
+}
+
+header a {
+    color: white;
+    text-decoration:none;
+    padding:2%;
+    cursor: pointer;
+}
+
+header a:hover {
+    background-color: white;
+    color: black;
+    transition: 1s;
+}
+
+#login {
+    margin-left:60%;
+}
+
+#delete {
+    color: white;
+}
+
+#delete:hover {
+    color: black;
+    transition: 1s;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/credentials.css" rel="stylesheet">
+    <script type="text/javascript" src="js/openTabs.js"></script>
+    <title>Signup</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col">
+            <div class="d-grid">
+                <button class="tabLinks" onclick="openContent(event, 'collaborator')">Collaborator</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-grid">
+                <button class="tabLinks" id="default" onclick="openContent(event, 'businessOwner')">Business owner</button>
+            </div>
+        </div>
+    </div>
+    <a href="/">< Back</a><br><br>
+    <div id="collaborator" class="tabContent">
+        <form action="/CollaboratorPage" method="post">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email address: </label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="category">Business category: </label>
+            <select class="custom-select" id="category" name="category" required>
+                <option>Real estate</option>
+                <option>Education</option>
+                <option>Wellness</option>
+            </select><br><br>
+            <label for="services">Services: </label>
+            <input type="text" id="services" name="services" multiple required><br><br>
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required><br><br>
+            <label for="password1">Re-enter password: </label>
+            <input type="password" name="password1" required><br><br>
+            <button type="submit">Sign-up</button>
+        </form><br>
+        <p>Existing collaborator? Login <a href="login" style="text-decoration:underline">here</a></p>
+    </div>
+    <div id="businessOwner" class="tabContent">
+        <form action="/BusinessOwnerPage" method="post">
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email address: </label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="password" id="password">Password: </label>
+            <input type="password" name="password" required><br><br>
+            <label for="password1" id="password1">Re-enter password: </label>
+            <input type="password" name="password1" required><br><br>
+            <button type="submit">Sign-up</button><br><br>
+        </form><br>
+        <p>Existing business owner? Login <a href="login" style="text-decoration:underline">here</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+.row button {
+    background-color: #ccc;
+    border: none;
+    padding: 25px;
+}
+
+.row button:hover {
+    text-decoration: underline;
+}
+
+.row button.active {
+    background-color: #353CDD;
+    color: white;
+}
+
+.tabContent {
+    display:none;
+}
+
+#profile {
+    display:block;
+}
+
+#edit, #save, #yes, #no {
+    background-color: #353CDD;
+    color: white;
+    padding: 10px;
+    border-color: transparent;
+    border-radius: 20px;
+    width:150px;
+}
+
+#yes a {
+    text-decoration: none;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top:0%;
+    left:0%;
+    z-index: 1;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15%;
+    padding: 20px;
+    width: 70%;
+}
+
+.modal-content a {
+    cursor: pointer;
+}
