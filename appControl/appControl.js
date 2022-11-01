@@ -82,8 +82,8 @@ exports.viewCollaborators = async(req,res,next) => {
 
 exports.renderBusinessPage = async(req,res) => {
     try {
-        console.log(res.locals.business);
-        console.log(res.locals.collaborators);
+        // console.log(res.locals.business);
+        // console.log(res.locals.collaborators);
         res.render('businessOwnerPage', {
                 'name': req.body.name,
                 'email': req.body.email,
@@ -101,6 +101,7 @@ exports.newCollaborator = async(req,res) => {
         db1.addCollaborator(
             req.body.name,
             req.body.email,
+            req.body.business,
             req.body.category,
             req.body.services,
             req.body.password
@@ -110,6 +111,7 @@ exports.newCollaborator = async(req,res) => {
             res.render('collaboratorPage', {
                 'name':req.body.name,
                 'email': req.body.email,
+                'business': req.body.business,
                 'services': req.body.services,
                 'profile':list
             })
@@ -153,9 +155,11 @@ exports.updateCollaborator = async(req,res) => {
         db1.editCollaborator(
             req.params.name,
             req.params.email,
+            req.params.business,
             req.params.services,
             req.body.name,
             req.body.email,
+            req.body.business,
             req.body.services
         );
         db1.viewCollaborator(req.body.name)
@@ -163,6 +167,7 @@ exports.updateCollaborator = async(req,res) => {
             res.render('collaboratorPage', {
                 'name': req.body.name,
                 'email': req.body.email,
+                'business': req.body.business,
                 'services': req.body.services,
                 'profile':entry 
             });

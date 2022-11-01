@@ -10,7 +10,7 @@ router.post("/BusinessOwnerPage",controller.newBusinessOwner,controller.viewColl
 router.post("/CollaboratorPage",controller.newCollaborator);
 // router.get("/viewCollaborators",controller.viewCollaborators);
 router.post("/updateBusinessOwner/:name/:email",controller.updateBusinessOwner,controller.viewCollaborators,controller.renderBusinessPage);
-router.post("/updateCollaborator/:name/:email/:services",controller.updateCollaborator);
+router.post("/updateCollaborator/:name/:email/:business/:services",controller.updateCollaborator);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 router.use(controller.fileError);
 

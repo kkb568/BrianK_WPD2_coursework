@@ -6,11 +6,12 @@ class app1 {
         // this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
-    addCollaborator(Name,Email,Category,Services,Password) {
+    addCollaborator(Name,Email,Business,Category,Services,Password) {
         return new Promise((resolve,reject) => {
             this.db.insert({
                 name:Name,
                 email:Email,
+                business:Business,
                 category:Category,
                 services:Services,
                 password:Password
@@ -28,7 +29,7 @@ class app1 {
 
     viewCollaborator(Name) {
         return new Promise((resolve,reject) => {
-            this.db.find({name:Name},{_id:0,name:1,email:1,category:1,services:1}, function (error,entry) {
+            this.db.find({name:Name},{_id:0,name:1,email:1,business:1,category:1,services:1}, function (error,entry) {
                     if(error) {
                         reject(error);
                     }
@@ -41,7 +42,7 @@ class app1 {
 
     viewCollaborators() {
         return new Promise((resolve,reject) => {
-            this.db.find({},{_id:0,name:1,email:1,category:1,services:1}, function (error,entry) {
+            this.db.find({},{_id:0,name:1,email:1,business:1,category:1,services:1}, function (error,entry) {
                     if(error) {
                         reject(error);
                     }
@@ -52,9 +53,9 @@ class app1 {
         })
     }
 
-    editCollaborator(oldName,oldEmail,oldServices,Name,Email,Services) {
+    editCollaborator(oldName,oldEmail,oldBusiness,oldServices,Name,Email,Business,Services) {
         return new Promise((resolve,reject) => {
-            this.db.update({name:oldName, email:oldEmail, services:oldServices},{$set:{name:Name, email:Email, services:Services}}, function(error,entry) {
+            this.db.update({name:oldName, email:oldEmail, business:oldBusiness, services:oldServices},{$set:{name:Name, email:Email, business:Business, services:Services}}, function(error,entry) {
                 if(error) {
                     reject(error);
                 }

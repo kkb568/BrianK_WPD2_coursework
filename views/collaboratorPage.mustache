@@ -41,6 +41,7 @@
         {{#profile}}
             Name: {{name}}<br><br>
             Email address: {{email}}<br><br>
+            Business name: {{business}}<br><br>
             Business category: {{category}}<br><br>
             Services: {{services}}<br><br>
             <button id="edit" onclick="openModal1()">Edit profile</button>
@@ -54,11 +55,13 @@
                     <a onclick = "closeModal1()">< Back</a><br><br>
                 </div>
                 <div class="modal-body">
-                    <form action="/updateCollaborator/{{name}}/{{email}}/{{services}}" method="post">
+                    <form action="/updateCollaborator/{{name}}/{{email}}/{{business}}/{{services}}" method="post">
                         <label for="name">Name: </label>
                         <input type="text" name="name" value="{{name}}"><br><br>
                         <label for="email">Email address: </label>
                         <input type="email" name="email" value="{{email}}"><br><br>
+                        <label for="business">Business name: </label>
+                        <input type="text" name="business" value="{{business}}"><br><br>
                         <label for="services">Services: </label>
                         <input type="text" name="services" value="{{services}}" multiple><br><br>
                         <button id="save">Save</button>

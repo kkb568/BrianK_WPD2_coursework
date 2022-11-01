@@ -8,10 +8,8 @@ class app {
 
     addBusinessOwner(Name,Email,Password) {
         return new Promise((resolve,reject) => {
-            let UserType = "Business owner";
             this.db.insert({
                 name:Name,
-                userType: UserType,
                 email:Email,
                 password:Password
             }, function(error,entry) {
