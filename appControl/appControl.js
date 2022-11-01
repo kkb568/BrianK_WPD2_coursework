@@ -136,11 +136,6 @@ exports.updateBusinessOwner = async(req,res,next) => {
         .then((entry) => {
             res.locals.business = entry[0];
             next();
-            // res.render('businessOwnerPage', {
-            //     'name': req.body.name,
-            //     'email': req.body.email,
-            //     'profile':entry 
-            // });
             console.log('Promise resolved.');
             console.log('Updated successfully.')
         })
