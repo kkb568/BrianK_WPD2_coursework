@@ -1,9 +1,9 @@
 const nedb = require('nedb');
 
 class app {
-    constructor(dbFilePath) {
-        // this.db = new nedb();
-        this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor() {
+        this.db = new nedb();
+        // this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addBusinessOwner(Name,Email,Password) {
@@ -62,6 +62,19 @@ class app {
     //         });
     //     });
     // }
+
+    addCollaboratorToOwner(ownerName,ownerEmail,name,email,business,category,services) {
+        return new Promise((resolve,reject) => {
+            this.db.update({name:ownerName, email:ownerEmail},{$set:{collaborators:{name:name,email:email,business:business,category:category,services:services}}},function(error,entry) {
+                if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }
+            });
+        });
+    }
 }
 
 module.exports = app;

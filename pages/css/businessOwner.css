@@ -30,7 +30,7 @@
     width:150px;
 }
 
-#yes a {
+#yes a, #connect a {
     text-decoration: none;
     color: white;
 }

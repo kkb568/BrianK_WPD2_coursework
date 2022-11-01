@@ -84,11 +84,20 @@ exports.renderBusinessPage = async(req,res) => {
     try {
         // console.log(res.locals.business);
         // console.log(res.locals.collaborators);
+        var Name, Email;
+        for(let i=0;i<res.locals.collaborators.length;i++) {
+            Name = res.locals.collaborators[i].name;
+            Email = res.locals.collaborators[i].email;
+        }
         res.render('businessOwnerPage', {
                 'name': req.body.name,
                 'email': req.body.email,
+                'OwnerName': req.body.name,
+                'OwnerEmail': req.body.email,
                 'profile': res.locals.business,
-                'collaboratorProfile': res.locals.collaborators
+                'collaboratorProfile': res.locals.collaborators,
+                'collaboratorName': Name,
+                'collaboratorEmail': Email
         });
     } 
     catch (error) {
@@ -177,6 +186,23 @@ exports.updateCollaborator = async(req,res) => {
         .catch((err) => {
             console.log('Promise rejected', err);
         });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.connectCollaborator = async(req,res) => {
+    try {
+        db.addCollaboratorToOwner(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.name,
+            req.params.email,
+            req.params.business,
+            req.params.category,
+            req.params.services
+        );
     } 
     catch (error) {
         console.log(error.message);

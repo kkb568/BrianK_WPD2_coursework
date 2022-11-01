@@ -79,15 +79,29 @@
             </div>
         </div>
     </div>
-    <div id="connected" class="tabContent">Connected</div>
-    <div id="available" class="tabContent">
-        {{#collaboratorProfile}}
+    <div id="connected" class="tabContent">
+        {{#connected}}
             Name: {{name}}<br><br>
             Email address: {{email}}<br><br>
             Business name: {{business}}<br><br>
             Business category: {{category}}<br><br>
             Services: {{services}}<br><br>
-            <button id="connect">Connect</button><br><br>
+        {{/connected}}
+        {{^connected}}
+            <p>No connected collaborator.</p>
+        {{/connected}}
+    </div>
+    <div id="available" class="tabContent">
+        {{#collaboratorProfile}}
+            Name: {{collaboratorName}}<br><br>
+            Email address: {{collaboratorEmail}}<br><br>
+            Business name: {{business}}<br><br>
+            Business category: {{category}}<br><br>
+            Services: {{services}}<br><br>
+            <button id="connect">
+                <a href="/connectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{collaboratorName}}/{{collaboratorEmail}}/{{business}}/{{category}}/{{services}}">Connect</a>
+            </button>
+            <br><br>
         {{/collaboratorProfile}}
         {{^collaboratorProfile}}
             <p>No available collaborator.</p>
