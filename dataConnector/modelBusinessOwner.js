@@ -1,15 +1,17 @@
 const nedb = require('nedb');
 
 class app {
-    constructor() {
-        this.db = new nedb();
-        // this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor(dbFilePath) {
+        // this.db = new nedb();
+        this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addBusinessOwner(Name,Email,Password) {
         return new Promise((resolve,reject) => {
+            let UserType = "Business owner";
             this.db.insert({
                 name:Name,
+                userType: UserType,
                 email:Email,
                 password:Password
             }, function(error,entry) {

@@ -8,7 +8,7 @@ router.get("/login",controller.loginPage);
 router.get("/signup",controller.signupPage);
 router.post("/BusinessOwnerPage",controller.newBusinessOwner);
 router.post("/CollaboratorPage",controller.newCollaborator);
-// router.get("/viewCollaborators",controller.viewCollaborator);
+router.get("/viewCollaborators",controller.viewCollaborators);
 router.post("/updateBusinessOwner/:name/:email",controller.updateBusinessOwner);
 router.post("/updateCollaborator/:name/:email/:services",controller.updateCollaborator);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);

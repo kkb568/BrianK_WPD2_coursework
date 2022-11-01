@@ -93,23 +93,26 @@ exports.newCollaborator = async(req,res) => {
     }
 }
 
-// exports.viewCollaborator = async(req,res) => {
-//     try {
-//         db1.viewCollaborator(req.body.name)
-//         .then((list) => {
-//             res.render('businessOwnerPage', {
-//                 'collaboratorProfile':list
-//             })
-//             console.log('Promise resolved.');
-//         })
-//         .catch((err) => {
-//             console.log('Promise rejected', err);
-//         });
-//     }
-//     catch (error) {
-//         console.log(error.message);
-//     }
-// }
+// TO-DO
+exports.viewCollaborators = async(req,res) => {
+    try {
+        db1.viewCollaborators()
+        .then((list) => {
+            console.log("List:", list);
+            console.log("Length: ", list.length);
+            res.render('businessOwnerPage', {
+                'collaboratorProfile':list
+            })
+            console.log('Promise resolved.');
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
 
 exports.updateBusinessOwner = async(req,res) => {
     try {
