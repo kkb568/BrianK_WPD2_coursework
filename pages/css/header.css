@@ -35,11 +35,11 @@ header a:hover {
     margin-left:60%;
 }
 
-#delete {
+#delete, #login {
     color: white;
 }
 
-#delete:hover {
+#delete:hover, #login:hover {
     color: black;
     transition: 1s;
 }

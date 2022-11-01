@@ -30,6 +30,11 @@
     width:150px;
 }
 
+#yes a {
+    text-decoration: none;
+    color: white;
+}
+
 .modal {
     display: none;
     position: fixed;

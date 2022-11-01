@@ -10,8 +10,8 @@
         <div class="container2">
             <a href="/">Home</a>
             <a href="about">About</a>
-            <a href="login" id="login">Logout</a>
-            <a id="delete" onclick="openModal('Modal')">Delete account</a>
+            <a id="login" onclick="openModal1()">Logout</a>
+            <a id="delete" onclick="openModal()">Delete account</a>
         </div>
     </header>
     <div id="Modal" class="modal">
@@ -21,9 +21,20 @@
                 </div>
                 <div class="modal-body">
                     <button id="yes"><a href="/deleteBusinessOwner/{{name}}/{{email}}">Yes</a></button>
-                    <button id="no" onclick="closeModal('Modal')">No</button>
+                    <button id="no" onclick="closeModal()">No</button>
                 </div>
             </div>
+    </div>
+    <div id="Modal1" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p>Are you sure you want to logout of your account?</p>
+            </div>
+            <div class="modal-body">
+                <button id="yes"><a href="/">Yes</a></button>
+                <button id="no" onclick="closeModal1()">No</button>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -46,15 +57,15 @@
         {{#profile}}
             Name: {{name}}<br><br>
             Email address: {{email}}<br><br>
-            <button id="edit" onclick="openModal1()">Edit profile</button>
+            <button id="edit" onclick="openModal2()">Edit profile</button>
         {{/profile}}
         {{^profile}}
             <p>No entry</p>
         {{/profile}}
-        <div id="Modal1" class="modal">
+        <div id="Modal2" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <a onclick = "closeModal1()">< Back</a><br><br>
+                    <a onclick = "closeModal2()">< Back</a><br><br>
                 </div>
                 <div class="modal-body">
                     <form action="/updateBusinessOwner/{{name}}/{{email}}" method="post">
