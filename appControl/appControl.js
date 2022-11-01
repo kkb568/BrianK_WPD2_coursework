@@ -41,7 +41,7 @@ exports.signupPage = async(req,res) => {
     }
 }
 
-exports.newBusinessOwner = async(req,res) => {
+exports.newBusinessOwner = async(req,res,next) => {
     try {
         db.addBusinessOwner(
             req.body.name,
@@ -49,17 +49,48 @@ exports.newBusinessOwner = async(req,res) => {
             req.body.password);
         db.viewBusinessOwner(req.body.name)
             .then((list) => {
-                res.render('businessOwnerPage', {
-                    'name': req.body.name,
-                    'email': req.body.email,
-                    'profile': list
-                });
+                res.locals.business = list[0];
+                next();
                 console.log('Promise resolved.');
             })
             .catch((err) => {
                 console.log('Promise rejected', err);
             })
     }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+// TO-DO
+exports.viewCollaborators = async(req,res,next) => {
+    try {
+        db1.viewCollaborators()
+        .then((list) => {
+            res.locals.collaborators = list;
+            next();
+            console.log('Promise resolved.');
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.renderBusinessPage = async(req,res) => {
+    try {
+        console.log(res.locals.business);
+        console.log(res.locals.collaborators);
+        res.render('businessOwnerPage', {
+                'name': req.body.name,
+                'email': req.body.email,
+                'profile': res.locals.business,
+                'collaboratorProfile': res.locals.collaborators
+        });
+    } 
     catch (error) {
         console.log(error.message);
     }
@@ -93,28 +124,7 @@ exports.newCollaborator = async(req,res) => {
     }
 }
 
-// TO-DO
-exports.viewCollaborators = async(req,res) => {
-    try {
-        db1.viewCollaborators()
-        .then((list) => {
-            console.log("List:", list);
-            console.log("Length: ", list.length);
-            res.render('businessOwnerPage', {
-                'collaboratorProfile':list
-            })
-            console.log('Promise resolved.');
-        })
-        .catch((err) => {
-            console.log('Promise rejected', err);
-        });
-    }
-    catch (error) {
-        console.log(error.message);
-    }
-}
-
-exports.updateBusinessOwner = async(req,res) => {
+exports.updateBusinessOwner = async(req,res,next) => {
     try {
         db.editBusinessOwner(
             req.params.name,
@@ -124,11 +134,13 @@ exports.updateBusinessOwner = async(req,res) => {
         );
         db.viewBusinessOwner(req.body.name)
         .then((entry) => {
-            res.render('businessOwnerPage', {
-                'name': req.body.name,
-                'email': req.body.email,
-                'profile':entry 
-            });
+            res.locals.business = entry[0];
+            next();
+            // res.render('businessOwnerPage', {
+            //     'name': req.body.name,
+            //     'email': req.body.email,
+            //     'profile':entry 
+            // });
             console.log('Promise resolved.');
             console.log('Updated successfully.')
         })

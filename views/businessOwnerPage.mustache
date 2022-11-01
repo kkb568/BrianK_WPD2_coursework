@@ -70,12 +70,12 @@
     </div>
     <div id="connected" class="tabContent">Connected</div>
     <div id="available" class="tabContent">
-        <button><a href="/viewCollaborators">Refresh</a></button>
         {{#collaboratorProfile}}
             Name: {{name}}<br><br>
             Email address: {{email}}<br><br>
             Business category: {{category}}<br><br>
-            Services: {{services}}
+            Services: {{services}}<br><br>
+            <button id="connect">Connect</button><br><br>
         {{/collaboratorProfile}}
         {{^collaboratorProfile}}
             <p>No available collaborator.</p>

@@ -21,7 +21,7 @@
     display:block;
 }
 
-#edit, #save, #yes, #no {
+#edit, #save, #yes, #no, #connect {
     background-color: #353CDD;
     color: white;
     padding: 10px;
