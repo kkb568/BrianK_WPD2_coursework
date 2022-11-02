@@ -47,7 +47,7 @@ exports.newBusinessOwner = async(req,res,next) => {
             req.body.name,
             req.body.email,
             req.body.password);
-        db.viewBusinessOwner(req.body.name)
+        db.viewBusinessOwner(req.body.name,req.body.email)
             .then((list) => {
                 res.locals.business = list[0];
                 next();
@@ -62,7 +62,28 @@ exports.newBusinessOwner = async(req,res,next) => {
     }
 }
 
-// TO-DO
+//TO-DO
+exports.checkConnectedCollaborators = async(req,res,next) => {
+    try {
+        db.viewConnectedCollaborators(
+            req.body.name,
+            req.body.email
+        )
+        .then((list1) => {
+            var i = list1[0].connectedCollaborators.length;
+            if(i==0) {
+                next();
+            }
+            else {
+                res.locals.connected = list1[0].connectedCollaborators;
+                next();
+            }
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 exports.viewCollaborators = async(req,res,next) => {
     try {
         db1.viewCollaborators()
@@ -100,7 +121,8 @@ exports.renderBusinessPage = async(req,res) => {
                 'collaboratorEmail': Email,
                 'business': Business,
                 'category': Category,
-                'services': Services
+                'services': Services,
+                'connected': res.locals.connected
         });
     } 
     catch (error) {
@@ -124,6 +146,7 @@ exports.newCollaborator = async(req,res) => {
                 'name':req.body.name,
                 'email': req.body.email,
                 'business': req.body.business,
+                'category': req.body.category,
                 'services': req.body.services,
                 'profile':list
             })
@@ -146,7 +169,7 @@ exports.updateBusinessOwner = async(req,res,next) => {
             req.body.name,
             req.body.email
         );
-        db.viewBusinessOwner(req.body.name)
+        db.viewBusinessOwner(req.body.name,req.body.email)
         .then((entry) => {
             res.locals.business = entry[0];
             next();
@@ -195,7 +218,7 @@ exports.updateCollaborator = async(req,res) => {
     }
 }
 
-exports.connectCollaborator = async(req,res) => {
+exports.connectCollaborator = async(req,res,next) => {
     try {
         db.addCollaboratorToOwner(
             req.params.ownerName,
@@ -211,9 +234,82 @@ exports.connectCollaborator = async(req,res) => {
             req.params.ownerEmail
         )
         .then((entry) => {
-            res.render('businessOwnerPage', {
-                'connected': entry[0].connectedCollaborators
-            });
+            res.locals.connected = entry[0].connectedCollaborators;
+            next();
+            // res.render('businessOwnerPage', {
+            //     'connected': entry[0].connectedCollaborators
+            // });
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.viewBusinessOwner = async(req,res,next) => {
+    try {
+        db.viewBusinessOwner(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            res.locals.business = entry[0];
+            console.log(entry[0]);
+            next();
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.checkOwners = async(req,res,next) => {
+    try {
+        db.viewOwnersByCollaborator(
+            req.params.name,
+            req.params.email
+        )
+        .then((record) => {
+            if(record.length==0) {
+                next();
+            }
+            else {
+                res.locals.owner = record;
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+// TO-DO
+exports.renderCollaboratorPage = async(req,res) => {
+    try {
+        var name, email;
+        for(let i=0;i<res.locals.owner.length;i++) {
+            name = res.locals.owner[i].name;
+            email = res.locals.owner[i].email;
+        }
+        res.render('collaboratorPage', {
+                'name':req.params.name,
+                'email': req.params.email,
+                'business': req.params.business,
+                'category': req.params.category,
+                'services': req.params.services,
+                'profile':req.params,
+                'ownerName':name,
+                'ownerEmail':email
         })
     } 
     catch (error) {

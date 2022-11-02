@@ -25,9 +25,9 @@ class app {
         });
     }
 
-    viewBusinessOwner(Name) {
+    viewBusinessOwner(Name,Email) {
         return new Promise((resolve,reject) => {
-            this.db.find({name:Name},{_id:0,name:1,email:1}, function(error,entry) {
+            this.db.find({name:Name,email:Email},{_id:0,name:1,email:1}, function(error,entry) {
                 if(error) {
                     reject(error);
                 }
@@ -64,7 +64,6 @@ class app {
     //     });
     // }
 
-    // CONTINUE FROM HERE.
     addCollaboratorToOwner(ownerName,ownerEmail,name,email,business,category,services) {
         return new Promise((resolve,reject) => {
             this.db.update({name:ownerName, email:ownerEmail},{$push:{connectedCollaborators:{name:name,email:email,business:business,category:category,services:services}}},{},function(error,entry) {
@@ -82,6 +81,19 @@ class app {
     viewConnectedCollaborators(ownerName,ownerEmail) {
         return new Promise((resolve,reject) => {
             this.db.find({name:ownerName,email:ownerEmail},{_id:0,connectedCollaborators:1}, function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }
+            });
+        });
+    }
+
+    viewOwnersByCollaborator(collName,collEmail) {
+        return new Promise((resolve,reject) => {
+            this.db.find({"connectedCollaborators.name":collName,"connectedCollaborators.email":collEmail},{_id:0,name:1,email:1}, function(error,entry) {
                 if(error) {
                     reject(error);
                 }
