@@ -88,6 +88,7 @@ exports.viewCollaborators = async(req,res,next) => {
     try {
         db1.viewCollaborators()
         .then((list) => {
+            console.log(list);
             res.locals.collaborators = list;
             next();
             console.log('Promise resolved.');
@@ -105,23 +106,10 @@ exports.renderBusinessPage = async(req,res) => {
     try {
         // console.log(res.locals.business);
         // console.log(res.locals.collaborators);
-        var Name, Email, Business, Category, Services;
-        for(let i=0;i<res.locals.collaborators.length;i++) {
-            Name = res.locals.collaborators[i].name;
-            Email = res.locals.collaborators[i].email;
-            Business = res.locals.collaborators[i].business;
-            Category = res.locals.collaborators[i].category;
-            Services = res.locals.collaborators[i].services;
-        }
         res.render('businessOwnerPage', {
                 'OwnerName': res.locals.business.name,
                 'OwnerEmail': res.locals.business.email,
                 'collaboratorProfile': res.locals.collaborators,
-                'collaboratorName': Name,
-                'collaboratorEmail': Email,
-                'business': Business,
-                'category': Category,
-                'services': Services,
                 'connected': res.locals.connected
         });
     } 
@@ -143,12 +131,12 @@ exports.newCollaborator = async(req,res) => {
         db1.viewCollaborator(req.body.name)
         .then((list) => {
             res.render('collaboratorPage', {
-                'name':req.body.name,
+                'name': req.body.name,
                 'email': req.body.email,
                 'business': req.body.business,
                 'category': req.body.category,
                 'services': req.body.services,
-                'profile':list
+                'profile': list
             })
             console.log('Promise resolved.');
         })
@@ -277,40 +265,31 @@ exports.checkOwners = async(req,res,next) => {
         )
         .then((record) => {
             if(record.length==0) {
-                next();
+                res.render('collaboratorPage', {
+                    'name':req.params.name,
+                    'email': req.params.email,
+                    'business': req.params.business,
+                    'category': req.params.category,
+                    'services': req.params.services,
+                    'profile':req.params,
+                });
             }
             else {
-                res.locals.owner = record;
-                next();
+                console.log("Record: ",record);
+                res.render('collaboratorPage', {
+                    'name':req.params.name,
+                    'email': req.params.email,
+                    'business': req.params.business,
+                    'category': req.params.category,
+                    'services': req.params.services,
+                    'profile': req.params,
+                    'connectedOwners':record
+                })
             }
         })
         .catch((err) => {
             console.log('Promise rejected', err);
         });
-    } 
-    catch (error) {
-        console.log(error.message);
-    }
-}
-
-// TO-DO
-exports.renderCollaboratorPage = async(req,res) => {
-    try {
-        var name, email;
-        for(let i=0;i<res.locals.owner.length;i++) {
-            name = res.locals.owner[i].name;
-            email = res.locals.owner[i].email;
-        }
-        res.render('collaboratorPage', {
-                'name':req.params.name,
-                'email': req.params.email,
-                'business': req.params.business,
-                'category': req.params.category,
-                'services': req.params.services,
-                'profile':req.params,
-                'ownerName':name,
-                'ownerEmail':email
-        })
     } 
     catch (error) {
         console.log(error.message);

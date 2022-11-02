@@ -22,9 +22,7 @@ router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/
     controller.viewBusinessOwner,
     controller.viewCollaborators,
     controller.renderBusinessPage);
-router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",
-    controller.checkOwners,
-    controller.renderCollaboratorPage);
+router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",controller.checkOwners);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 router.use(controller.fileError);
 
