@@ -84,20 +84,23 @@ exports.renderBusinessPage = async(req,res) => {
     try {
         // console.log(res.locals.business);
         // console.log(res.locals.collaborators);
-        var Name, Email;
+        var Name, Email, Business, Category, Services;
         for(let i=0;i<res.locals.collaborators.length;i++) {
             Name = res.locals.collaborators[i].name;
             Email = res.locals.collaborators[i].email;
+            Business = res.locals.collaborators[i].business;
+            Category = res.locals.collaborators[i].category;
+            Services = res.locals.collaborators[i].services;
         }
         res.render('businessOwnerPage', {
-                'name': req.body.name,
-                'email': req.body.email,
-                'OwnerName': req.body.name,
-                'OwnerEmail': req.body.email,
-                'profile': res.locals.business,
+                'OwnerName': res.locals.business.name,
+                'OwnerEmail': res.locals.business.email,
                 'collaboratorProfile': res.locals.collaborators,
                 'collaboratorName': Name,
-                'collaboratorEmail': Email
+                'collaboratorEmail': Email,
+                'business': Business,
+                'category': Category,
+                'services': Services
         });
     } 
     catch (error) {
@@ -203,6 +206,15 @@ exports.connectCollaborator = async(req,res) => {
             req.params.category,
             req.params.services
         );
+        db.viewConnectedCollaborators(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            res.render('businessOwnerPage', {
+                'connected': entry[0].connectedCollaborators
+            });
+        })
     } 
     catch (error) {
         console.log(error.message);

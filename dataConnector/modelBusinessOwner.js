@@ -11,6 +11,7 @@ class app {
             this.db.insert({
                 name:Name,
                 email:Email,
+                connectedCollaborators: [],
                 password:Password
             }, function(error,entry) {
                 if(error) {
@@ -63,10 +64,25 @@ class app {
     //     });
     // }
 
+    // CONTINUE FROM HERE.
     addCollaboratorToOwner(ownerName,ownerEmail,name,email,business,category,services) {
         return new Promise((resolve,reject) => {
-            this.db.update({name:ownerName, email:ownerEmail},{$set:{collaborators:{name:name,email:email,business:business,category:category,services:services}}},function(error,entry) {
+            this.db.update({name:ownerName, email:ownerEmail},{$push:{connectedCollaborators:{name:name,email:email,business:business,category:category,services:services}}},{},function(error,entry) {
                 if (error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                    // console.log(entry);
+                }
+            });
+        });
+    }
+
+    viewConnectedCollaborators(ownerName,ownerEmail) {
+        return new Promise((resolve,reject) => {
+            this.db.find({name:ownerName,email:ownerEmail},{_id:0,connectedCollaborators:1}, function(error,entry) {
+                if(error) {
                     reject(error);
                 }
                 else {
