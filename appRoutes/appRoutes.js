@@ -6,6 +6,7 @@ router.get("/",controller.landing_page);
 router.get("/about",controller.aboutPage);
 router.get("/login",controller.loginPage);
 router.get("/signup",controller.signupPage);
+
 router.post("/BusinessOwnerPage",
     controller.newBusinessOwner,
     controller.viewCollaborators,

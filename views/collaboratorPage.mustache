@@ -10,8 +10,8 @@
         <div class="container2">
             <a href="/">Home</a>
             <a href="about">About</a>
-            <a id="login" onclick="openModal1()">Logout</a>
-            <a id="delete" onclick="openModal()">Delete account</a>
+            <a id="login" onclick="openModal('Modal1')">Logout</a>
+            <a id="delete" onclick="openModal('Modal')">Delete account</a>
         </div>
     </header>
     <div id="Modal" class="modal">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="modal-body">
                     <button id="yes"><a>Yes</a></button>
-                    <button id="no" onclick="closeModal()">No</button>
+                    <button id="no" onclick="closeModal('Modal')">No</button>
                 </div>
             </div>
     </div>
@@ -32,7 +32,7 @@
             </div>
             <div class="modal-body">
                 <button id="yes"><a href="/">Yes</a></button>
-                <button id="no" onclick="closeModal1()">No</button>
+                <button id="no" onclick="closeModal('Modal1')">No</button>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
             Business name: {{business}}<br><br>
             Business category: {{category}}<br><br>
             Services: {{services}}<br><br>
-            <button id="edit" onclick="openModal2()">Edit profile</button>
+            <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
         {{/profile}}
         {{^profile}}
             <p>No entry</p>
@@ -63,7 +63,7 @@
         <div id="Modal2" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <a onclick = "closeModal2()">< Back</a><br><br>
+                    <a onclick = "closeModal('Modal2')">< Back</a><br><br>
                 </div>
                 <div class="modal-body">
                     <form action="/updateCollaborator/{{name}}/{{email}}/{{business}}/{{services}}" method="post">

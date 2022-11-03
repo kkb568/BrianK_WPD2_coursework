@@ -11,8 +11,8 @@
         <div class="container2">
             <a href="/">Home</a>
             <a href="about">About</a>
-            <a id="login" onclick="openModal1()">Logout</a>
-            <a id="delete" onclick="openModal()">Delete account</a>
+            <a id="login" onclick="openModal('Modal1')">Logout</a>
+            <a id="delete" onclick="openModal('Modal')">Delete account</a>
         </div>
     </header>
     <div id="Modal" class="modal">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="modal-body">
                     <button id="yes"><a href="/deleteBusinessOwner/{{OwnerName}}/{{OwnerEmail}}">Yes</a></button>
-                    <button id="no" onclick="closeModal()">No</button>
+                    <button id="no" onclick="closeModal('Modal')">No</button>
                 </div>
             </div>
     </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="modal-body">
                 <button id="yes"><a href="/">Yes</a></button>
-                <button id="no" onclick="closeModal1()">No</button>
+                <button id="no" onclick="closeModal('Modal1')">No</button>
             </div>
         </div>
     </div>
@@ -57,11 +57,11 @@
     <div id ="profile" class="tabContent">
         Name: {{OwnerName}}<br><br>
         Email address: {{OwnerEmail}}<br><br>
-        <button id="edit" onclick="openModal2()">Edit profile</button>
+        <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
         <div id="Modal2" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <a onclick = "closeModal2()">< Back</a><br><br>
+                    <a onclick = "closeModal('Modal2')">< Back</a><br><br>
                 </div>
                 <div class="modal-body">
                     <form action="/updateBusinessOwner/{{OwnerName}}/{{OwnerEmail}}" method="post">
@@ -88,7 +88,30 @@
             {{^plans}}
                 <p>No plans created</p>
             {{/plans}}
-            <button id="newPlan"><a href="">Create new plan</a></button><br><br>
+            <button id="newPlan" onclick="openModal('Modal3')">Create new plan</button><br><br>
+            <div id="Modal3" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a onclick = "closeModal('Modal3')">< Back</a><br><br>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <label for="agenda">Name: </label>
+                        <input type="text" name="agenda"><br><br>
+                        <label for="tasks">Tasks: </label>
+                        <textarea name="tasks"></textarea><br><br>
+                        Duration:<br><br>
+                        <label for="from">From: </label>
+                        <input type="date" name="from"><br><br>
+                        <label for="to">To: </label>
+                        <input type="date" name="to"><br><br>
+                        <label for="outcome">Outcome: </label>
+                        <input type="text" name="outcome"><br><br>
+                        <button id="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
             <button id="disconnect"><a href="/disconnectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}">Disconnect</a></button>
             <br><br>
         {{/connected}}
