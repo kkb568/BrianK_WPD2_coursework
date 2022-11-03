@@ -21,7 +21,8 @@
     display:block;
 }
 
-#edit, #save, #yes, #no, #connect {
+#edit, #save, #yes, #no, #connect, #disconnect, #refresh,
+#newPlan {
     background-color: #353CDD;
     color: white;
     padding: 10px;
@@ -30,7 +31,7 @@
     width:150px;
 }
 
-#yes a, #connect a {
+#yes a, #disconnect a, #refresh a, #newPlan a {
     text-decoration: none;
     color: white;
 }

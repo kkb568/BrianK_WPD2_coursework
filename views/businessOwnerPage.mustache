@@ -82,12 +82,22 @@
             Business name: {{business}}<br><br>
             Business category: {{category}}<br><br>
             Services: {{services}}<br><br>
+            <h2 style="font-weight: bold;">Plans</h2><br>
+            {{#plans}}
+            {{/plans}}
+            {{^plans}}
+                <p>No plans created</p>
+            {{/plans}}
+            <button id="newPlan"><a href="">Create new plan</a></button><br><br>
+            <button id="disconnect"><a href="/disconnectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}">Disconnect</a></button>
+            <br><br>
         {{/connected}}
         {{^connected}}
             <p>No connected collaborator.</p>
         {{/connected}}
     </div>
     <div id="available" class="tabContent">
+        <button id="refresh"><a href="/checkAvailableCollaborators/{{OwnerName}}/{{OwnerEmail}}">Refresh</a></button><br><br>
         {{#collaboratorProfile}}
         <form action="/connectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}" method="post">
             <label for="name">Name: </label>
@@ -100,7 +110,7 @@
             <input type="text" name="category" value="{{category}}" readonly><br><br>
             <label for="services">Email address: </label>
             <input type="text" name="services" value="{{services}}" readonly><br><br>
-            <button id="connect"></button>
+            <button id="connect">Connect</button><br><br>
         </form>
         {{/collaboratorProfile}}
         {{^collaboratorProfile}}

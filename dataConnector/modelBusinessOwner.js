@@ -72,7 +72,7 @@ class app {
                 }
                 else {
                     resolve(entry);
-                    // console.log(entry);
+                    console.log(entry.connectedCollaborators);
                 }
             });
         });
@@ -94,6 +94,19 @@ class app {
     viewOwnersByCollaborator(collName,collEmail) {
         return new Promise((resolve,reject) => {
             this.db.find({"connectedCollaborators.name":collName,"connectedCollaborators.email":collEmail},{_id:0,name:1,email:1}, function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }
+            });
+        });
+    }
+
+    removeCollaboratorFromOwner(ownerName,ownerEmail,name,email) {
+        return new Promise((resolve,reject) => {
+            this.db.update({name:ownerName,email:ownerEmail},{$pull:{connectedCollaborators:{name:name,email:email}}},{},function(error,entry) {
                 if(error) {
                     reject(error);
                 }

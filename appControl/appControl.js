@@ -224,9 +224,6 @@ exports.connectCollaborator = async(req,res,next) => {
         .then((entry) => {
             res.locals.connected = entry[0].connectedCollaborators;
             next();
-            // res.render('businessOwnerPage', {
-            //     'connected': entry[0].connectedCollaborators
-            // });
         })
         .catch((err) => {
             console.log('Promise rejected', err);
@@ -286,6 +283,50 @@ exports.checkOwners = async(req,res,next) => {
                     'connectedOwners':record
                 })
             }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.viewOwnerConnections = async(req,res,next) => {
+    try {
+        db.viewConnectedCollaborators(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            res.locals.connected = entry[0].connectedCollaborators;
+            next();
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.deleteCollaboratorFromOwner = async(req,res,next) => {
+    try {
+        db.removeCollaboratorFromOwner(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.name,
+            req.params.email
+        );
+        db.viewConnectedCollaborators(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            res.locals.connected = entry[0].connectedCollaborators;
+            next();
         })
         .catch((err) => {
             console.log('Promise rejected', err);

@@ -23,6 +23,16 @@ router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/
     controller.viewCollaborators,
     controller.renderBusinessPage);
 router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",controller.checkOwners);
+router.get("/disconnectCollaborator/:ownerName/:ownerEmail/:name/:email",
+    controller.deleteCollaboratorFromOwner,
+    controller.viewBusinessOwner,
+    controller.viewCollaborators,
+    controller.renderBusinessPage);
+router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
+    controller.viewCollaborators,
+    controller.viewBusinessOwner,
+    controller.viewOwnerConnections,
+    controller.renderBusinessPage);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 router.use(controller.fileError);
 

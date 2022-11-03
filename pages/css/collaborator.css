@@ -21,7 +21,7 @@
     display:block;
 }
 
-#edit, #save, #yes, #no {
+#edit, #save, #yes, #no, #refresh {
     background-color: #353CDD;
     color: white;
     padding: 10px;
@@ -30,7 +30,7 @@
     width:150px;
 }
 
-#yes a {
+#yes a, #refresh a {
     text-decoration: none;
     color: white;
 }
