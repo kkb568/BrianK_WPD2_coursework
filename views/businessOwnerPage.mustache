@@ -84,34 +84,19 @@
             Services: {{services}}<br><br>
             <h2 style="font-weight: bold;">Plans</h2><br>
             {{#plans}}
+                <h2 style="font-weight: bold;">Current plans</h2>
+                Agenda: {{agenda}}
+                Tasks: {{tasks}}<br><br>
+                Duration: {{from}} to {{to}}<br><br>
+                Outcome: {{outcome}}<br><br>
+                Completed: {{completed}}<br><br>
+                <button id=edit1>Edit plan</button>
+                <button id=delete>Delete plan</button>
             {{/plans}}
             {{^plans}}
                 <p>No plans created</p>
             {{/plans}}
-            <button id="newPlan" onclick="openModal('Modal3')">Create new plan</button><br><br>
-            <div id="Modal3" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <a onclick = "closeModal('Modal3')">< Back</a><br><br>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <label for="agenda">Name: </label>
-                        <input type="text" name="agenda"><br><br>
-                        <label for="tasks">Tasks: </label>
-                        <textarea name="tasks"></textarea><br><br>
-                        Duration:<br><br>
-                        <label for="from">From: </label>
-                        <input type="date" name="from"><br><br>
-                        <label for="to">To: </label>
-                        <input type="date" name="to"><br><br>
-                        <label for="outcome">Outcome: </label>
-                        <input type="text" name="outcome"><br><br>
-                        <button id="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+            <button id="newPlan"><a href='/addPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}'>Create new plan</a></button><br><br>
             <button id="disconnect"><a href="/disconnectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}">Disconnect</a></button>
             <br><br>
         {{/connected}}

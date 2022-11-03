@@ -337,6 +337,15 @@ exports.deleteCollaboratorFromOwner = async(req,res,next) => {
     }
 }
 
+exports.createPlanPage = function(req,res) {
+    res.render('createPlan', {
+        OwnerName:req.params.ownerName,
+        OwnerEmail:req.params.ownerEmail,
+        name:req.params.name,
+        email:req.params.email
+    });
+}
+
 // exports.deleteBusinessOwner = async(req,res) => {
 //     try {
 //         db.deleteBusinessOwner(req.params.name,req.params.email);

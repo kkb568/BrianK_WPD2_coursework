@@ -35,6 +35,8 @@ router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
     controller.viewOwnerConnections,
     controller.renderBusinessPage);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
+
+router.get("/addPlan/:ownerName/:ownerEmail/:name/:email",controller.createPlanPage);
 router.use(controller.fileError);
 
 router.use(function (req,res) {
