@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{>head}}
+    <title>{{OwnerName}}</title>
+    <link href="/css/plan.css" rel="stylesheet">
+</head>
+<body>
+    <a onclick = "history.back()" style="cursor:pointer;">< Back</a><br><br>
+    <h2 style="font-weight:bold;text-align:center">Edit plan</h2><br>
+        <form action="/addPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}" method="post">
+            <label for="agenda">Agenda: </label>
+            <input type="text" id="agenda" name="agenda" value="{{agenda}}" required><br><br>
+            <label for="tasks">Tasks: </label>
+            <textarea name="tasks" id="tasks" multiple required>{{tasks}}</textarea><br><br>
+            Duration:<br><br>
+            <label for="from">From: </label>
+            <input type="date" id="from" name="from" value="{{from}}" required><br><br>
+            <label for="to">To: </label>
+            <input type="date" id="to" name="to" value="{{to}}" required><br><br>
+            <label for="outcome">Outcome: </label>
+            <input type="text" id="outcome" name="outcome" value="{{outcome}}" required><br><br>
+            <button type="submit" id="submit">Submit</button>
+        </form>
+</body>
+</html>

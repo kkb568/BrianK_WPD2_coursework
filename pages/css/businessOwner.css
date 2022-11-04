@@ -31,7 +31,8 @@
     width:150px;
 }
 
-#yes a, #disconnect a, #refresh a, #newPlan a {
+#yes a, #disconnect a, #refresh a, #newPlan a,
+#edit1 a {
     text-decoration: none;
     color: white;
 }

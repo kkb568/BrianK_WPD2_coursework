@@ -32,11 +32,18 @@ router.get("/disconnectCollaborator/:ownerName/:ownerEmail/:name/:email",
 router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
     controller.viewCollaborators,
     controller.viewBusinessOwner,
-    controller.viewOwnerConnections,
+    controller.viewOwnerConnectionsAndPlans,
     controller.renderBusinessPage);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 
 router.get("/addPlan/:ownerName/:ownerEmail/:name/:email",controller.createPlanPage);
+router.get("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:from/:to/:outcome",controller.editPlanPage);
+router.post("/addPlan/:ownerName/:ownerEmail/:name/:email",
+    controller.addPlan,
+    controller.viewBusinessOwner,
+    controller.checkConnectedCollaborators1,
+    controller.viewCollaborators,
+    controller.renderBusinessPage);
 router.use(controller.fileError);
 
 router.use(function (req,res) {

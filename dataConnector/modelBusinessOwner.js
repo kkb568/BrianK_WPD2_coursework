@@ -12,6 +12,7 @@ class app {
                 name:Name,
                 email:Email,
                 connectedCollaborators: [],
+                plans: [],
                 password:Password
             }, function(error,entry) {
                 if(error) {
@@ -80,7 +81,7 @@ class app {
 
     viewConnectedCollaborators(ownerName,ownerEmail) {
         return new Promise((resolve,reject) => {
-            this.db.find({name:ownerName,email:ownerEmail},{_id:0,connectedCollaborators:1}, function(error,entry) {
+            this.db.find({name:ownerName,email:ownerEmail},{_id:0,connectedCollaborators:1,plans:1}, function(error,entry) {
                 if(error) {
                     reject(error);
                 }
@@ -113,6 +114,35 @@ class app {
                 else {
                     resolve(entry);
                 }
+            });
+        });
+    }
+
+    addPlantoCollaborator(ownerName,ownerEmail,name,email,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {
+        return new Promise((resolve,reject) => {
+            this.db.update({name:ownerName,email:ownerEmail},
+            {$push:{plans:{collName:name,collEmail:email,agenda:Agenda,tasks:Tasks,originFrom:originFrom,from:From,originTo:originTo,to:To,outcome:Outcome,completed:'false'}}},
+            {},function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }
+            });
+        });
+    }
+
+    viewPlan(ownerName,ownerEmail,name,email) {
+        return new Promise((resolve,reject) => {
+            this.db.find({name:ownerName,email:ownerEmail,"connectedCollaborators.name":name,"connectedCollaborators.email":email},
+            {_id:0,plans:1},function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }    
             });
         });
     }

@@ -2,6 +2,7 @@ const appDAO = require('../dataConnector/modelBusinessOwner');
 const appDAO1 = require('../dataConnector/modelCollaborator');
 const db = new appDAO();
 const db1 = new appDAO1();
+const dayjs = require('dayjs');
 // const db = new appDAO('database/businessOwner.db');
 // const db1 = new appDAO1('database/collaborator.db');
 
@@ -62,12 +63,32 @@ exports.newBusinessOwner = async(req,res,next) => {
     }
 }
 
-//TO-DO
 exports.checkConnectedCollaborators = async(req,res,next) => {
     try {
         db.viewConnectedCollaborators(
             req.body.name,
             req.body.email
+        )
+        .then((list1) => {
+            var i = list1[0].connectedCollaborators.length;
+            if(i==0) {
+                next();
+            }
+            else {
+                res.locals.connected = list1[0].connectedCollaborators;
+                next();
+            }
+        })
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.checkConnectedCollaborators1 = async(req,res,next) => {
+    try {
+        db.viewConnectedCollaborators(
+            req.params.ownerName,
+            req.params.ownerEmail
         )
         .then((list1) => {
             var i = list1[0].connectedCollaborators.length;
@@ -110,7 +131,8 @@ exports.renderBusinessPage = async(req,res) => {
                 'OwnerName': res.locals.business.name,
                 'OwnerEmail': res.locals.business.email,
                 'collaboratorProfile': res.locals.collaborators,
-                'connected': res.locals.connected
+                'connected': res.locals.connected,
+                'plans': res.locals.plans
         });
     } 
     catch (error) {
@@ -293,7 +315,7 @@ exports.checkOwners = async(req,res,next) => {
     }
 }
 
-exports.viewOwnerConnections = async(req,res,next) => {
+exports.viewOwnerConnectionsAndPlans = async(req,res,next) => {
     try {
         db.viewConnectedCollaborators(
             req.params.ownerName,
@@ -301,7 +323,13 @@ exports.viewOwnerConnections = async(req,res,next) => {
         )
         .then((entry) => {
             res.locals.connected = entry[0].connectedCollaborators;
-            next();
+            if(entry[0].plans.length == 0) {
+                next();
+            }
+            else {
+                res.locals.plans = entry[0].plans
+                next();
+            }
         })
         .catch((err) => {
             console.log('Promise rejected', err);
@@ -344,6 +372,57 @@ exports.createPlanPage = function(req,res) {
         name:req.params.name,
         email:req.params.email
     });
+}
+
+exports.editPlanPage = function(req,res) {
+    res.render('editPlan', {
+        OwnerName:req.params.ownerName,
+        OwnerEmail:req.params.ownerEmail,
+        name:req.params.name,
+        email:req.params.email,
+        agenda:req.params.agenda,
+        tasks:req.params.tasks,
+        from: req.params.from,
+        to: req.params.to,
+        outcome:req.params.outcome
+    });
+}
+
+exports.addPlan = async(req,res,next) => {
+    try {
+        const fromDate = dayjs(req.body.from).format('dddd, MMMM D, YYYY');
+        const toDate = dayjs(req.body.to).format('dddd, MMMM D, YYYY');
+        db.addPlantoCollaborator(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.name,
+            req.params.email,
+            req.body.agenda,
+            req.body.tasks,
+            req.body.from,
+            fromDate,
+            req.body.to,
+            toDate,
+            req.body.outcome
+        );
+        db.viewPlan(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.name,
+            req.params.email
+        )
+        .then((entry) => {
+            res.locals.plans = entry[0].plans;
+            next();
+            // console.log(entry[0].plans[0].agenda);
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
 }
 
 // exports.deleteBusinessOwner = async(req,res) => {
