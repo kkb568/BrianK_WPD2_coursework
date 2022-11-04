@@ -425,6 +425,40 @@ exports.addPlan = async(req,res,next) => {
     }
 }
 
+exports.editPlan = async(req,res,next) => {
+    try {
+        db.viewSpecificPlan(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.name,
+            req.params.email,
+            req.params.agenda,
+            req.params.tasks,
+            req.params.outcome
+        );
+        // const fromDate = dayjs(req.body.from).format('dddd, MMMM D, YYYY');
+        // const toDate = dayjs(req.body.to).format('dddd, MMMM D, YYYY');
+        
+        // db.viewPlan(
+        //     req.params.ownerName,
+        //     req.params.ownerEmail,
+        //     req.params.name,
+        //     req.params.email
+        // )
+        // .then((entry) => {
+        //     res.locals.plans = entry[0].plans;
+        //     next();
+        //     // console.log(entry[0].plans[0].agenda);
+        // })
+        // .catch((err) => {
+        //     console.log('Promise rejected', err);
+        // });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
 // exports.deleteBusinessOwner = async(req,res) => {
 //     try {
 //         db.deleteBusinessOwner(req.params.name,req.params.email);

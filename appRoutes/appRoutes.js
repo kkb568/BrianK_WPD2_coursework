@@ -44,6 +44,12 @@ router.post("/addPlan/:ownerName/:ownerEmail/:name/:email",
     controller.checkConnectedCollaborators1,
     controller.viewCollaborators,
     controller.renderBusinessPage);
+router.post("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:outcome",
+    controller.editPlan,
+    controller.viewBusinessOwner,
+    controller.checkConnectedCollaborators1,
+    controller.viewCollaborators,
+    controller.renderBusinessPage);
 router.use(controller.fileError);
 
 router.use(function (req,res) {
