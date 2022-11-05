@@ -86,7 +86,28 @@
         <button id="refresh"><a href="/checkConnectedOwners/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}">Refresh</a></button><br><br>
         {{#connectedOwners}}
             Name: {{name}}<br><br>
-            Email address: {{email}}
+            Email address: {{email}}<br><br>
+            <h2 style="font-weight:bold">Current plans</h2>
+            {{#currentPlans}}
+                Agenda: {{agenda}}<br><br>
+                Tasks: {{tasks}}<br><br>
+                Duration: {{from}} to {{to}}<br><br>
+                Outcome: {{outcome}}<br><br>
+                <button id="completed"><a href="/confirmComplete/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}">Completed</a></button><br><br>
+            {{/currentPlans}}
+            {{^currentPlans}}
+                <p>No available current plans.</p>
+            {{/currentPlans}}
+            <h2 style="font-weight:bold">Past plans</h2>
+            {{#pastPlans}}
+                Agenda: {{agenda}}<br><br>
+                Tasks: {{tasks}}<br><br>
+                Duration: {{from}} to {{to}}<br><br>
+                Outcome: {{outcome}}
+            {{/pastPlans}}
+            {{^pastPlans}}
+                <p>No past plans.</p>
+            {{/pastPlans}}
         {{/connectedOwners}}
         {{^connectedOwners}}
             <p>No available connected business owners.</p>

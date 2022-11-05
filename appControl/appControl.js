@@ -152,7 +152,7 @@ exports.newCollaborator = async(req,res) => {
             req.body.services,
             req.body.password
         );
-        db1.viewCollaborator(req.body.name)
+        db1.viewCollaborator(req.body.name,req.body.email)
         .then((list) => {
             res.render('collaboratorPage', {
                 'name': req.body.name,
@@ -209,7 +209,7 @@ exports.updateCollaborator = async(req,res) => {
             req.body.business,
             req.body.services
         );
-        db1.viewCollaborator(req.body.name)
+        db1.viewCollaborator(req.body.name,req.body.email)
         .then((entry) => {
             res.render('collaboratorPage', {
                 'name': req.body.name,
@@ -278,7 +278,7 @@ exports.viewBusinessOwner = async(req,res,next) => {
     }
 }
 
-exports.checkOwners = async(req,res,next) => {
+exports.checkOwners = async(req,res) => {
     try {
         db.viewOwnersByCollaborator(
             req.params.name,
@@ -304,7 +304,9 @@ exports.checkOwners = async(req,res,next) => {
                     'category': req.params.category,
                     'services': req.params.services,
                     'profile': req.params,
-                    'connectedOwners':record
+                    'connectedOwners':record,
+                    'currentPlans': res.locals.current,
+                    'pastPlans': res.locals.past
                 })
             }
         })
@@ -338,7 +340,7 @@ exports.viewOwnerConnections = async(req,res,next) => {
 
 exports.viewPlans = async(req,res,next) => {
     try {
-        db2.viewAllPlans(
+        db2.viewPlansByOwner(
             req.params.ownerName,
             req.params.ownerEmail
         )
@@ -472,6 +474,160 @@ exports.editPlan = async(req,res,next) => {
         .then((entry) => {
             res.locals.plans = entry;
             next();
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.removePlan = async(req,res,next) => {
+    try {
+        db2.deletePlan(
+            req.params.agenda,
+            req.params.tasks,
+            req.params.from,
+            req.params.to,
+            req.params.outcome,
+            req.params.completed
+        );
+        db2.viewPlansByOwner(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            if(entry.length==0) {
+                next();
+            }
+            else {
+                res.locals.plans = entry;
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.viewPlanByColl = async(req,res,next) => {
+    try {
+        db2.viewPlanByCollaborator(
+            req.params.name,
+            req.params.email
+        )
+        .then((entry) => {
+            if(entry.length==0) {
+                next();
+            }
+            else {
+                for(let i=0;i<entry.length;i++) {
+                    if(entry[i].completed=='false') {
+                        res.locals.current = entry;
+                        next();
+                    }
+                    else {
+                        res.locals.past = entry;
+                        next();
+                    }
+                }
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.confirmCompletion = async(req,res,next) => {
+    try {
+        db2.setCompletion(
+            req.params.ownerName,
+            req.params.ownerEmail,
+            req.params.agenda,
+            req.params.tasks,
+            req.params.from,
+            req.params.to,
+            req.params.outcome
+        );
+        db2.viewPlansByOwner(
+            req.params.ownerName,
+            req.params.ownerEmail
+        )
+        .then((entry) => {
+            for(let i=0;i<entry.length;i++) {
+                if(entry[i].completed=='false') {
+                    res.locals.current = entry;
+                    next();
+                }
+                else {
+                    res.locals.past = entry;
+                    next();
+                }
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.checkOwnerDetails = async(req,res,next) => {
+    db2.viewOwnerByPlan(
+        req.params.agenda,
+        req.params.tasks,
+        req.params.from,
+        req.params.to,
+        req.params.outcome
+    )
+    .then((entry) => {
+        res.locals.owner = entry;
+        next();
+    })
+    .catch((err) => {
+        console.log('Promise rejected', err);
+    });
+}
+
+exports.checkOwners1 = async(req,res) => {
+    try {
+        db2.viewCollByPlan(
+            req.params.agenda,
+            req.params.tasks,
+            req.params.from,
+            req.params.to,
+            req.params.outcome
+        )
+        .then((entry)=> {
+            console.log("Found entry: ", entry);
+            db1.viewCollaborator(entry[0].collName,entry[0].collEmail)
+            .then((record)=> {
+                console.log("Record: ",record);
+                res.render('collaboratorPage', {
+                    'name':record[0].name,
+                    'email': record[0].email,
+                    'business': record[0].business,
+                    'category': record[0].category,
+                    'services': record[0].services,
+                    'profile': record[0],
+                    'connectedOwners.name':req.params.ownerName,
+                    'connectedOwners.email':req.params.ownerEmail,
+                    'currentPlans': res.locals.current,
+                    'pastPlans': res.locals.past
+                })
+            });
         })
         .catch((err) => {
             console.log('Promise rejected', err);

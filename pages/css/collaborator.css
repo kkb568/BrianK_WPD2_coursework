@@ -21,7 +21,7 @@
     display:block;
 }
 
-#edit, #save, #yes, #no, #refresh {
+#edit, #save, #yes, #no, #refresh, #completed {
     background-color: #353CDD;
     color: white;
     padding: 10px;
@@ -30,7 +30,7 @@
     width:150px;
 }
 
-#yes a, #refresh a {
+#yes a, #refresh a, #completed a {
     text-decoration: none;
     color: white;
 }
