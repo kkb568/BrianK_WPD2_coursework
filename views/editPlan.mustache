@@ -8,7 +8,7 @@
 <body>
     <a onclick = "history.back()" style="cursor:pointer;">< Back</a><br><br>
     <h2 style="font-weight:bold;text-align:center">Edit plan</h2><br>
-        <form action="/editPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{outcome}}" method="post">
+        <form action="/editPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}" method="post">
             <label for="agenda">Agenda: </label>
             <input type="text" id="agenda" name="agenda" value="{{agenda}}" required><br><br>
             <label for="tasks">Tasks: </label>

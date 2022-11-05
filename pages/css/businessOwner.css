@@ -22,7 +22,7 @@
 }
 
 #edit, #save, #yes, #no, #connect, #disconnect, #refresh,
-#newPlan, #submit, #completed, #edit1, #delete {
+#newPlan, #submit, #completed, #edit1, #deletePlan {
     background-color: #353CDD;
     color: white;
     padding: 10px;

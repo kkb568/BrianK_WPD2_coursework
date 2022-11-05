@@ -18,6 +18,7 @@ router.post("/updateBusinessOwner/:name/:email",
     controller.viewCollaborators,
     controller.renderBusinessPage);
 router.post("/updateCollaborator/:name/:email/:business/:services",controller.updateCollaborator);
+// TO BE CHECKED WHEN THERE IS PLANS.
 router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/:category/:services",
     controller.connectCollaborator,
     controller.viewBusinessOwner,
@@ -32,7 +33,8 @@ router.get("/disconnectCollaborator/:ownerName/:ownerEmail/:name/:email",
 router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
     controller.viewCollaborators,
     controller.viewBusinessOwner,
-    controller.viewOwnerConnectionsAndPlans,
+    controller.viewOwnerConnections,
+    controller.viewPlans,
     controller.renderBusinessPage);
 // router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 
@@ -44,12 +46,13 @@ router.post("/addPlan/:ownerName/:ownerEmail/:name/:email",
     controller.checkConnectedCollaborators1,
     controller.viewCollaborators,
     controller.renderBusinessPage);
-router.post("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:outcome",
+router.post("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:from/:to/:outcome",
     controller.editPlan,
     controller.viewBusinessOwner,
     controller.checkConnectedCollaborators1,
     controller.viewCollaborators,
     controller.renderBusinessPage);
+router.post("/deletePlan/:agenda/:tasks/:from/:to/:outcome/:completed")
 router.use(controller.fileError);
 
 router.use(function (req,res) {

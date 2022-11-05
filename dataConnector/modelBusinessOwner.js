@@ -12,7 +12,6 @@ class app {
                 name:Name,
                 email:Email,
                 connectedCollaborators: [],
-                plans: [],
                 password:Password
             }, function(error,entry) {
                 if(error) {
@@ -117,73 +116,15 @@ class app {
             });
         });
     }
-
-    addPlantoCollaborator(ownerName,ownerEmail,name,email,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {
-        return new Promise((resolve,reject) => {
-            this.db.update({name:ownerName,email:ownerEmail},
-            {$push:{plans:{collName:name,collEmail:email,agenda:Agenda,tasks:Tasks,originFrom:originFrom,from:From,originTo:originTo,to:To,outcome:Outcome,completed:'false'}}},
-            {},function(error,entry) {
-                if(error) {
-                    reject(error);
-                }
-                else {
-                    resolve(entry);
-                }
-            });
-        });
-    }
-
-    viewPlan(ownerName,ownerEmail,name,email) {
-        return new Promise((resolve,reject) => {
-            this.db.find({name:ownerName,email:ownerEmail,"plans.collName":name,"plans.collEmail":email},
-            {_id:0,plans:1},function(error,entry) {
-                if(error) {
-                    reject(error);
-                }
-                else {
-                    resolve(entry);
-                    console.log("View: ", entry);
-                }    
-            });
-        });
-    }
-
-    viewSpecificPlan(ownerName,ownerEmail,name,email,Agenda,Tasks,Outcome) {
-        return new Promise((resolve,reject) => {
-            this.db.find({name:ownerName,email:ownerEmail,"plans.collName":name,"plans.collEmail":email,"plans.agenda":Agenda,"plans.tasks":Tasks,"plans.outcome":Outcome},
-            {_id:0,plans:1},function(error,entry) {
-                if(error) {
-                    reject(error);
-                }
-                else {
-                    resolve(entry);
-                    console.log("Specific: ", entry);
-                }    
-            });
-        });
-    }
-
-    updatePlan(ownerName,ownerEmail,name,email,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {
-        return new Promise((resolve,reject) => {
-            this.db.update({name:ownerName,email:ownerEmail,"plans.collName":name,"plans.collEmail":email},
-            {$set:{"plans.agenda":Agenda,"plans.tasks":Tasks,"plans.originFrom":originFrom,"plans.from":From,"plans.originTo":originTo,"plans.to":To,"plans.outcome":Outcome}},
-            {},function(error,entry) {
-                if(error) {
-                    reject(error);
-                }
-                else {
-                    resolve(entry);
-                }
-            });
-        });
-    }
 }
 
 module.exports = app;
 
-// removePlan(ownerName,ownerEmail,name,email) {
+// updatePlan(ownerName,ownerEmail,oldAgenda,oldTasks,oldOutcome,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {
 //     return new Promise((resolve,reject) => {
-//         this.db.update({name:ownerName,email:ownerEmail},{$pull:{plans:{collName:name,collEmail:email}}},{},function(error,entry) {
+//         this.db.update({name:ownerName,email:ownerEmail,"plans.agenda":oldAgenda,"plans.tasks":oldTasks,"plans.outcome":oldOutcome},
+//         {$set:{"plans.agenda":Agenda,"plans.tasks":Tasks,"plans.originFrom":originFrom,"plans.from":From,"plans.originTo":originTo,"plans.to":To,"plans.outcome":Outcome}},
+//         {},function(error,entry) {
 //             if(error) {
 //                 reject(error);
 //             }
