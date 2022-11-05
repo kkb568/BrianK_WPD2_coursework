@@ -92,18 +92,9 @@
                 <button id=edit1>
                     <a href='/editPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{originFrom}}/{{originTo}}/{{outcome}}'>Edit plan</a>
                 </button>
-                <button id=deletePlan onclick="openModal('Modal3')">Delete plan</button><br><br>
-                <div id="Modal3" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <p>Are you sure you want to delete the plan?</p>
-                        </div>
-                        <div class="modal-body">
-                            <button id="yes"><a href="/deletePlan/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}/{{completed}}">Yes</a></button>
-                            <button id="no" onclick="closeModal('Modal3')">No</button>
-                        </div>
-                    </div>
-                </div>
+                <button id=deletePlan>
+                    <a href="/deletePlan/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}/{{completed}}">Delete plan</a>
+                </button><br><br>
             {{/plans}}
             {{^plans}}
                 <p>No plans created</p>

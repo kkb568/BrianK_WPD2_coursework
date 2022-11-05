@@ -85,15 +85,15 @@
     <div id="connected" class="tabContent">
         <button id="refresh"><a href="/checkConnectedOwners/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}">Refresh</a></button><br><br>
         {{#connectedOwners}}
-            Name: {{name}}<br><br>
-            Email address: {{email}}<br><br>
+            Name: {{OwnerName}}<br><br>
+            Email address: {{OwnerEmail}}<br><br>
             <h2 style="font-weight:bold">Current plans</h2>
             {{#currentPlans}}
                 Agenda: {{agenda}}<br><br>
                 Tasks: {{tasks}}<br><br>
                 Duration: {{from}} to {{to}}<br><br>
                 Outcome: {{outcome}}<br><br>
-                <button id="completed"><a href="/confirmComplete/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}">Completed</a></button><br><br>
+                <button id="completed"><a href="/confirmComplete/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}">Completed</a></button><br><br>
             {{/currentPlans}}
             {{^currentPlans}}
                 <p>No available current plans.</p>

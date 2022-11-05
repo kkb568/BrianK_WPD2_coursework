@@ -26,7 +26,8 @@ router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/
     controller.renderBusinessPage);
 router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",
     controller.viewPlanByColl,
-    controller.checkOwners);
+    controller.checkOwners,
+    controller.renderCollaboratorPage);
 router.get("/disconnectCollaborator/:ownerName/:ownerEmail/:name/:email",
     controller.deleteCollaboratorFromOwner,
     controller.viewBusinessOwner,
@@ -62,6 +63,7 @@ router.get("/deletePlan/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:outcome
     controller.renderBusinessPage)
 router.get("/confirmComplete/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:outcome",
     controller.confirmCompletion,
+    controller.checkOwnerDetails,
     controller.checkOwners1)
 router.use(controller.fileError);
 

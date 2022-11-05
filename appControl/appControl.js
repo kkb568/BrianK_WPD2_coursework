@@ -127,11 +127,11 @@ exports.viewCollaborators = async(req,res,next) => {
 
 exports.renderBusinessPage = async(req,res) => {
     try {
-        // console.log(res.locals.business);
+        console.log(res.locals.business);
         // console.log(res.locals.collaborators);
         res.render('businessOwnerPage', {
-                'OwnerName': res.locals.business.name,
-                'OwnerEmail': res.locals.business.email,
+                'OwnerName': res.locals.business.OwnerName,
+                'OwnerEmail': res.locals.business.OwnerEmail,
                 'collaboratorProfile': res.locals.collaborators,
                 'connected': res.locals.connected,
                 'plans': res.locals.plans
@@ -278,7 +278,7 @@ exports.viewBusinessOwner = async(req,res,next) => {
     }
 }
 
-exports.checkOwners = async(req,res) => {
+exports.checkOwners = async(req,res,next) => {
     try {
         db.viewOwnersByCollaborator(
             req.params.name,
@@ -286,33 +286,36 @@ exports.checkOwners = async(req,res) => {
         )
         .then((record) => {
             if(record.length==0) {
-                res.render('collaboratorPage', {
-                    'name':req.params.name,
-                    'email': req.params.email,
-                    'business': req.params.business,
-                    'category': req.params.category,
-                    'services': req.params.services,
-                    'profile':req.params,
-                });
+                next();
             }
             else {
-                console.log("Record: ",record);
-                res.render('collaboratorPage', {
-                    'name':req.params.name,
-                    'email': req.params.email,
-                    'business': req.params.business,
-                    'category': req.params.category,
-                    'services': req.params.services,
-                    'profile': req.params,
-                    'connectedOwners':record,
-                    'currentPlans': res.locals.current,
-                    'pastPlans': res.locals.past
-                })
+                res.locals.owners = record;
+                next();
             }
         })
         .catch((err) => {
             console.log('Promise rejected', err);
         });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.renderCollaboratorPage = async(req,res) => {
+    try {
+        console.log("Record: ", res.locals.owners);
+        res.render('collaboratorPage', {
+            'name': req.params.name,
+            'email': req.params.email,
+            'business': req.params.business,
+            'category': req.params.category,
+            'services': req.params.services,
+            'profile': req.params,
+            'connectedOwners': res.locals.owners,
+            'currentPlans': res.locals.current,
+            'pastPlans': res.locals.past
+        })
     } 
     catch (error) {
         console.log(error.message);
@@ -594,6 +597,7 @@ exports.checkOwnerDetails = async(req,res,next) => {
     )
     .then((entry) => {
         res.locals.owner = entry;
+        console.log("Owner found: ", res.locals.owner)
         next();
     })
     .catch((err) => {
@@ -622,8 +626,9 @@ exports.checkOwners1 = async(req,res) => {
                     'category': record[0].category,
                     'services': record[0].services,
                     'profile': record[0],
-                    'connectedOwners.name':req.params.ownerName,
-                    'connectedOwners.email':req.params.ownerEmail,
+                    'OwnerName': res.locals.owner[0].ownerName,
+                    'OwnerEmail': res.locals.owner[0].ownerEmail,
+                    'connectedOwners':res.locals.owner,
                     'currentPlans': res.locals.current,
                     'pastPlans': res.locals.past
                 })
