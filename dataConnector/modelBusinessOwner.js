@@ -1,9 +1,9 @@
 const nedb = require('nedb');
 
 class app {
-    constructor() {
-        this.db = new nedb();
-        // this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor(dbFilePath) {
+        // this.db = new nedb();
+        this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addBusinessOwner(Name,Email,Password) {
@@ -51,18 +51,18 @@ class app {
         });
     }
 
-    // deleteBusinessOwner(Name,Email) {
-    //     return new Promise((resolve,reject) => {
-    //         this.db.remove({name:Name,email:Email}, {}, function(error,entry) {
-    //             if(error) {
-    //                 reject(error);
-    //             }
-    //             else {
-    //                 resolve(entry);
-    //             }
-    //         });
-    //     });
-    // }
+    deleteBusinessOwner(Name,Email) {
+        return new Promise((resolve,reject) => {
+            this.db.remove({OwnerName:Name,OwnerEmail:Email}, {}, function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                }
+            });
+        });
+    }
 
     addCollaboratorToOwner(ownerName,ownerEmail,name,email,business,category,services) {
         return new Promise((resolve,reject) => {

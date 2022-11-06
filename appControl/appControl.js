@@ -1,12 +1,13 @@
 const appDAO = require('../dataConnector/modelBusinessOwner');
 const appDAO1 = require('../dataConnector/modelCollaborator');
 const appDAO2 = require('../dataConnector/modelPlans');
-const db = new appDAO();
-const db1 = new appDAO1();
-const db2 = new appDAO2();
 const dayjs = require('dayjs');
-// const db = new appDAO('database/businessOwner.db');
-// const db1 = new appDAO1('database/collaborator.db');
+const db = new appDAO('database/businessOwner.db');
+const db1 = new appDAO1('database/collaborator.db');
+const db2 = new appDAO2('database/plans.db');
+// const db = new appDAO();
+// const db1 = new appDAO1();
+// const db2 = new appDAO2();
 
 exports.landing_page = async(req,res) => {
     try {
@@ -643,16 +644,76 @@ exports.checkOwners1 = async(req,res) => {
     }
 }
 
-// exports.deleteBusinessOwner = async(req,res) => {
-//     try {
-//         db.deleteBusinessOwner(req.params.name,req.params.email);
-//         console.log('Entry deleted successfully');
-//         res.redirect('/signup.html');
-//     } 
-//     catch (error) {
-//         console.log(error.message);
-//     }
-// }
+exports.deleteBusinessOwner = async(req,res) => {
+    try {
+        db2.viewPlansByOwner(
+            req.params.name,
+            req.params.email
+        )
+        .then((record) => {
+            record.forEach(element => {
+                db2.deletePlan(
+                    element.agenda,
+                    element.tasks,
+                    element.from,
+                    element.to,
+                    element.outcome,
+                    element.completed
+                );
+                console.log("Plan deleted successfully.")
+            });
+        });
+        db.deleteBusinessOwner(req.params.name,req.params.email);
+        console.log('Entry deleted successfully');
+        res.redirect('/signup.html');
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.deleteCollaborator = async(req,res) => {
+    try {
+        db.viewOwnersByCollaborator(
+            req.params.name,
+            req.params.email
+        )
+        .then((entry) => {
+            entry.forEach(element => {
+                db.removeCollaboratorFromOwner(
+                    element.OwnerName,
+                    element.OwnerEmail,
+                    req.params.name,
+                    req.params.email
+                );
+                console.log("Record deleted from respective owners.");
+            });
+        });
+        db2.viewPlanByCollaborator(
+            req.params.name,
+            req.params.email
+        )
+        .then((record) => {
+            record.forEach(element1 => {
+                db2.deletePlan(
+                    element1.agenda,
+                    element1.tasks,
+                    element1.from,
+                    element1.to,
+                    element1.outcome,
+                    element1.completed
+                );
+                console.log("Plan deleted successfully.")
+            })
+        });
+        db1.deleteCollaborator(req.params.name,req.params.email);
+        console.log('Entry deleted successfully');
+        res.redirect('/signup.html');
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
 
 exports.fileError = function(req,res) {
     res.status(404);

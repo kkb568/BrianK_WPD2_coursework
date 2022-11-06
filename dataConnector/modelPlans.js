@@ -1,10 +1,9 @@
-const { rejects } = require('assert');
 const nedb = require('nedb');
-const { resolve } = require('path');
 
 class app {
-    constructor() {
-        this.db = new nedb();
+    constructor(dbFilePath) {
+        // this.db = new nedb();
+        this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addPlan(ownerName,ownerEmail,name,email,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {

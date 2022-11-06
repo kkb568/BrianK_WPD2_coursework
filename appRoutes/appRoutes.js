@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../appControl/appControl');
 
+//Routes to the main four pages.
 router.get("/",controller.landing_page);
 router.get("/about",controller.aboutPage);
 router.get("/login",controller.loginPage);
 router.get("/signup",controller.signupPage);
 
+//Rendering of the business and collaborator pages.
 router.post("/BusinessOwnerPage",
     controller.newBusinessOwner,
     controller.viewCollaborators,
@@ -18,11 +20,11 @@ router.post("/updateBusinessOwner/:name/:email",
     controller.viewCollaborators,
     controller.renderBusinessPage);
 router.post("/updateCollaborator/:name/:email/:business/:services",controller.updateCollaborator);
-// TO BE CHECKED WHEN THERE IS PLANS.
 router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/:category/:services",
     controller.connectCollaborator,
     controller.viewBusinessOwner,
     controller.viewCollaborators,
+    controller.viewPlans,
     controller.renderBusinessPage);
 router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",
     controller.viewPlanByColl,
@@ -39,8 +41,10 @@ router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
     controller.viewOwnerConnections,
     controller.viewPlans,
     controller.renderBusinessPage);
-// router.post("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
+router.get("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
+router.get("/deleteCollaborator/:name/:email",controller.deleteCollaborator);
 
+//Rendering of the business and collaborator pages when plans are added, edited or deleted.
 router.get("/addPlan/:ownerName/:ownerEmail/:name/:email",controller.createPlanPage);
 router.get("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:from/:to/:outcome",controller.editPlanPage);
 router.post("/addPlan/:ownerName/:ownerEmail/:name/:email",
@@ -65,8 +69,11 @@ router.get("/confirmComplete/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:ou
     controller.confirmCompletion,
     controller.checkOwnerDetails,
     controller.checkOwners1)
+
+//404 error functionality.
 router.use(controller.fileError);
 
+//Internal server error.
 router.use(function (req,res) {
     res.status(500);
     res.type();
