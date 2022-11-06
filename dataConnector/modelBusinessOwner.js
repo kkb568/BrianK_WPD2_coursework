@@ -19,7 +19,6 @@ class app {
                 }
                 else {
                     resolve(entry);
-                    console.log('Entry inserted.');
                 }
             });
         });
@@ -72,7 +71,6 @@ class app {
                 }
                 else {
                     resolve(entry);
-                    console.log(entry.connectedCollaborators);
                 }
             });
         });

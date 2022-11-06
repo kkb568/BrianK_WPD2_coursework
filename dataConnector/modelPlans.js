@@ -27,7 +27,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("Inserted plan: ", entry)
                 }
             });
         });
@@ -42,7 +41,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("View: ", entry);
                 }    
             });
         });
@@ -57,7 +55,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("View: ", entry);
                 }    
             });
         });
@@ -72,7 +69,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("View: ", entry);
                 }    
             });
         });
@@ -87,7 +83,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("View: ", entry);
                 }
             });
         });
@@ -102,7 +97,6 @@ class app2 {
                 }
                 else {
                     resolve(entry);
-                    console.log("View: ", entry);
                 }
             });
         });

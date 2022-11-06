@@ -21,7 +21,6 @@ class app1 {
                 }
                 else {
                     resolve(entry);
-                    console.log('Entry inserted.');
                 }
             });
         })

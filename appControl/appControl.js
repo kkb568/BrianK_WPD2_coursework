@@ -116,7 +116,6 @@ exports.viewCollaborators = async(req,res,next) => {
     try {
         db1.viewCollaborators()
         .then((list) => {
-            console.log(list);
             res.locals.collaborators = list;
             next();
             console.log('Promise resolved.');
@@ -132,8 +131,6 @@ exports.viewCollaborators = async(req,res,next) => {
 
 exports.renderBusinessPage = async(req,res) => {
     try {
-        console.log(res.locals.business);
-        // console.log(res.locals.collaborators);
         res.render('businessOwnerPage', {
                 'OwnerName': res.locals.business.OwnerName,
                 'OwnerEmail': res.locals.business.OwnerEmail,
@@ -290,7 +287,6 @@ exports.viewBusinessOwner = async(req,res,next) => {
         )
         .then((entry) => {
             res.locals.business = entry[0];
-            console.log(entry[0]);
             next();
         })
         .catch((err) => {
@@ -328,7 +324,6 @@ exports.checkOwners = async(req,res,next) => {
 
 exports.renderCollaboratorPage = async(req,res) => {
     try {
-        console.log("Record: ", res.locals.owners);
         res.render('collaboratorPage', {
             'name': req.params.name,
             'email': req.params.email,
@@ -621,7 +616,6 @@ exports.checkOwnerDetails = async(req,res,next) => {
     )
     .then((entry) => {
         res.locals.owner = entry;
-        console.log("Owner found: ", res.locals.owner)
         next();
     })
     .catch((err) => {
@@ -639,10 +633,8 @@ exports.checkOwners1 = async(req,res) => {
             req.params.outcome
         )
         .then((entry)=> {
-            console.log("Found entry: ", entry);
             db1.viewCollaborator(entry[0].collName,entry[0].collEmail)
             .then((record)=> {
-                console.log("Record: ",record);
                 res.render('collaboratorPage', {
                     'name':record[0].name,
                     'email': record[0].email,
