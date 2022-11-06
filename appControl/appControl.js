@@ -457,7 +457,6 @@ exports.addPlan = async(req,res,next) => {
         )
         .then((entry) => {
             res.locals.plans = entry;
-            console.log("Inserted plan: ", entry);
             next();
         })
         .catch((err) => {
