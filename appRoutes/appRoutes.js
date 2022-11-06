@@ -8,33 +8,40 @@ router.get("/about",controller.aboutPage);
 router.get("/login",controller.loginPage);
 router.get("/signup",controller.signupPage);
 
-//Rendering of the business and collaborator pages.
+//  Called when business owner creates a new business owner account.
 router.post("/BusinessOwnerPage",
     controller.newBusinessOwner,
     controller.viewCollaborators,
     controller.renderBusinessPage);
+//  Called when collaborator creates a new collaborator account.
 router.post("/CollaboratorPage",controller.newCollaborator);
+//  Called when business owner updates his or her profile information.
 router.post("/updateBusinessOwner/:name/:email",
     controller.updateBusinessOwner,
     controller.checkConnectedCollaborators,
     controller.viewCollaborators,
     controller.renderBusinessPage);
-router.post("/updateCollaborator/:name/:email/:business/:services",controller.updateCollaborator);
+//  Called when collaborator edits hisor her profile information.
+router.post("/updateCollaborator/:name/:email/:business/:category/:services",controller.updateCollaborator);
+// Called when business owner connects to an existing collaborator.
 router.post("/connectCollaborator/:ownerName/:ownerEmail/:name/:email/:business/:category/:services",
     controller.connectCollaborator,
     controller.viewBusinessOwner,
     controller.viewCollaborators,
     controller.viewPlans,
     controller.renderBusinessPage);
+// Called when collaborator wants to view his or her connected business owner.
 router.get("/checkConnectedOwners/:name/:email/:business/:category/:services",
     controller.viewPlanByColl,
     controller.checkOwners,
     controller.renderCollaboratorPage);
+// Called when business owner wants to disconnects with an existing connected collaborator. 
 router.get("/disconnectCollaborator/:ownerName/:ownerEmail/:name/:email",
     controller.deleteCollaboratorFromOwner,
     controller.viewBusinessOwner,
     controller.viewCollaborators,
     controller.renderBusinessPage);
+// Called when business owner wants to view available collaborators and those who he or she has connected with, together with their respective plans.
 router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
     controller.viewCollaborators,
     controller.viewBusinessOwner,
@@ -44,9 +51,10 @@ router.get("/checkAvailableCollaborators/:ownerName/:ownerEmail",
 router.get("/deleteBusinessOwner/:name/:email",controller.deleteBusinessOwner);
 router.get("/deleteCollaborator/:name/:email",controller.deleteCollaborator);
 
-//Rendering of the business and collaborator pages when plans are added, edited or deleted.
+//Routes to the 'Create plan' and 'edit plan' pages.
 router.get("/addPlan/:ownerName/:ownerEmail/:name/:email",controller.createPlanPage);
 router.get("/editPlan/:ownerName/:ownerEmail/:name/:email/:agenda/:tasks/:from/:to/:outcome",controller.editPlanPage);
+//Rendering of the business and collaborator pages when plans are added, edited or deleted.
 router.post("/addPlan/:ownerName/:ownerEmail/:name/:email",
     controller.addPlan,
     controller.viewBusinessOwner,
@@ -65,6 +73,7 @@ router.get("/deletePlan/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:outcome
     controller.checkConnectedCollaborators1,
     controller.viewCollaborators,
     controller.renderBusinessPage)
+// Called when the collaborator clicks on the complete button.
 router.get("/confirmComplete/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:outcome",
     controller.confirmCompletion,
     controller.checkOwnerDetails,

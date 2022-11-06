@@ -9,6 +9,7 @@ const db2 = new appDAO2('database/plans.db');
 // const db1 = new appDAO1();
 // const db2 = new appDAO2();
 
+//Route to the homepage.
 exports.landing_page = async(req,res) => {
     try {
         res.redirect('/index.html');
@@ -18,6 +19,7 @@ exports.landing_page = async(req,res) => {
     }
 }
 
+//Route to the about page.
 exports.aboutPage = async(req,res) => {
     try {
         res.redirect('/About.html');
@@ -27,6 +29,7 @@ exports.aboutPage = async(req,res) => {
     }
 }
 
+//Route to the login page.
 exports.loginPage = async(req,res) => {
     try {
         res.redirect('/login.html');
@@ -36,6 +39,7 @@ exports.loginPage = async(req,res) => {
     }
 }
 
+//Route to the sign up page.
 exports.signupPage = async(req,res) => {
     try {
         res.redirect('/signup.html');
@@ -210,6 +214,25 @@ exports.updateCollaborator = async(req,res) => {
             req.body.business,
             req.body.services
         );
+        db.viewOwnersByCollaborator(req.params.name,req.params.email)
+        .then((record) => {
+            record.forEach(element => {
+                db.removeCollaboratorFromOwner(
+                    element.OwnerName,
+                    element.OwnerEmail,
+                    req.params.name,
+                    req.params.email);
+                db.addCollaboratorToOwner(
+                    element.OwnerName,
+                    element.OwnerEmail,
+                    req.body.name,
+                    req.body.email,
+                    req.body.business,
+                    req.params.category,
+                    req.body.services
+                );
+            });
+        });
         db1.viewCollaborator(req.body.name,req.body.email)
         .then((entry) => {
             res.render('collaboratorPage', {

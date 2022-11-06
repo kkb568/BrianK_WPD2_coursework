@@ -1,6 +1,6 @@
 const nedb = require('nedb');
 
-class app {
+class app2 {
     constructor(dbFilePath) {
         // this.db = new nedb();
         this.db = new nedb({filename:dbFilePath,autoload:true});
@@ -151,4 +151,4 @@ class app {
     }
 }
 
-module.exports = app;
+module.exports = app2;
