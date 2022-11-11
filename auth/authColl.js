@@ -1,13 +1,13 @@
 const jwt = require('jsonwebtoken');
 
-exports.createCookie = async (req,res,next) => {
-    let payload = { OwnerName: req.body.name };
+exports.createCookie1 = async (req,res,next) => {
+    let payload = { name: req.body.name };
     let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
     res.cookie("jwt", accessToken);
     next();
 };
 
-exports.verify = function (req,res,next) {
+exports.verify1 = function (req,res,next) {
     let accessToken = req.cookies.jwt;
     if(!accessToken) {
         return res.status(403).send();

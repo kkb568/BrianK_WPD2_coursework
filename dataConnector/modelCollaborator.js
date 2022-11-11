@@ -42,6 +42,19 @@ class app1 {
         })
     }
 
+    viewCollaboratorWithPassword(Name,Email) {
+        return new Promise((resolve,reject) => {
+            this.db.find({name:Name,email:Email},{_id:0,name:1,email:1,business:1,category:1,services:1,password:1}, function (error,entry) {
+                    if(error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(entry);
+                    }
+                })
+        })
+    }
+
     viewCollaborators() {
         return new Promise((resolve,reject) => {
             this.db.find({},{_id:0,name:1,email:1,business:1,category:1,services:1}, function (error,entry) {

@@ -2,6 +2,7 @@ const appDAO = require('../dataConnector/modelBusinessOwner');
 const appDAO1 = require('../dataConnector/modelCollaborator');
 const appDAO2 = require('../dataConnector/modelPlans');
 const dayjs = require('dayjs');
+const bcrypt = require('bcrypt');
 // const db = new appDAO('database/businessOwner.db');
 // const db1 = new appDAO1('database/collaborator.db');
 // const db2 = new appDAO2('database/plans.db');
@@ -74,6 +75,66 @@ exports.newBusinessOwner = async(req,res,next) => {
         console.log(error.message);
     }
 }
+
+exports.loginOwner = async (req,res,next) => {
+    try {
+        console.log("User: ", req.body.name);
+        console.log("Email: ", req.body.email);
+        db.viewBusinessOwnerWithPassword(req.body.name, req.body.email)
+        .then((record) => {
+            if (!record) {
+                console.log("user ", req.body.name, " not found");
+                // return res.status(401).send();
+            }
+            bcrypt.compare(req.body.password, record[0].password, function (err, result) {
+                if (result) {
+                    res.locals.business = record[0];
+                    next();
+                }
+                else {
+                    return res.status(403).send();
+                }
+            });
+        });
+              
+    } 
+    catch (error) {
+         console.log(error.message);
+    }
+};
+
+exports.loginCollaborator = async (req,res,next) => {
+    try {
+        console.log("User: ", req.body.name);
+        console.log("Email: ", req.body.email);
+        db1.viewCollaboratorWithPassword(req.body.name, req.body.email)
+        .then((record) => {
+            if (!record) {
+                console.log("user ", req.body.name, " not found");
+                // return res.status(401).send();
+            }
+            bcrypt.compare(req.body.password, record[0].password, function (err, result) {
+                if (result) {
+                    res.render('collaboratorPage', {
+                        'name': record[0].name,
+                        'email': record[0].email,
+                        'business': record[0].business,
+                        'category': record[0].category,
+                        'services': record[0].services,
+                        'profile': record[0]
+                    })
+                }
+                else {
+                    return res.status(403).send();
+                }
+            });
+        });
+              
+    } 
+    catch (error) {
+         console.log(error.message);
+    }
+};
 
 exports.checkConnectedCollaborators = async(req,res,next) => {
     try {
@@ -151,28 +212,33 @@ exports.renderBusinessPage = async(req,res) => {
 
 exports.newCollaborator = async(req,res) => {
     try {
-        db1.addCollaborator(
-            req.body.name,
-            req.body.email,
-            req.body.business,
-            req.body.category,
-            req.body.services,
-            req.body.password
-        );
         db1.viewCollaborator(req.body.name,req.body.email)
-        .then((list) => {
-            res.render('collaboratorPage', {
-                'name': req.body.name,
-                'email': req.body.email,
-                'business': req.body.business,
-                'category': req.body.category,
-                'services': req.body.services,
-                'profile': list
-            })
-            console.log('Promise resolved.');
-        })
-        .catch((err) => {
-            console.log('Promise rejected', err);
+        .then((record) => {
+            if(record.length==0) {
+                db1.addCollaborator(
+                    req.body.name,
+                    req.body.email,
+                    req.body.business,
+                    req.body.category,
+                    req.body.services,
+                    req.body.password
+                );
+                db1.viewCollaborator(req.body.name,req.body.email)
+                .then((list) => {
+                    res.render('collaboratorPage', {
+                        'name': req.body.name,
+                        'email': req.body.email,
+                        'business': req.body.business,
+                        'category': req.body.category,
+                        'services': req.body.services,
+                        'profile': list
+                    })
+                    console.log('Promise resolved.');
+                })
+                .catch((err) => {
+                    console.log('Promise rejected', err);
+                });
+            }
         });
     }
     catch (error) {

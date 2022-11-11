@@ -29,6 +29,20 @@ class app {
 
     viewBusinessOwner(Name,Email) {
         return new Promise((resolve,reject) => {
+            this.db.find({OwnerName:Name,OwnerEmail:Email},{_id:0,OwnerName:1,OwnerEmail:1}, function(error,entry) {
+                if(error) {
+                    reject(error);
+                }
+                else {
+                    resolve(entry);
+                    console.log("Details: ", entry);
+                }
+            });
+        });
+    }
+
+    viewBusinessOwnerWithPassword(Name,Email) {
+        return new Promise((resolve,reject) => {
             this.db.find({OwnerName:Name,OwnerEmail:Email},{_id:0,OwnerName:1,OwnerEmail:1,password:1}, function(error,entry) {
                 if(error) {
                     reject(error);
