@@ -51,18 +51,26 @@ exports.signupPage = async(req,res) => {
 
 exports.newBusinessOwner = async(req,res,next) => {
     try {
-        db.addBusinessOwner(
-            req.body.name,
-            req.body.email,
-            req.body.password);
         db.viewBusinessOwner(req.body.name,req.body.email)
-            .then((list) => {
-                res.locals.business = list[0];
-                next();
-                console.log('Promise resolved.');
-            })
-            .catch((err) => {
-                console.log('Promise rejected', err);
+            .then((record) => {
+                if(record.length==0) {
+                    db.addBusinessOwner(
+                        req.body.name,
+                        req.body.email,
+                        req.body.password);
+                    db.viewBusinessOwner(req.body.name,req.body.email)
+                        .then((list) => {
+                            res.locals.business = list[0];
+                            next();
+                            console.log('Promise resolved.');
+                        })
+                        .catch((err) => {
+                            console.log('Promise rejected', err);
+                        })
+                }
+                else {
+                    console.log("User exists.");
+                }
             })
     }
     catch (error) {

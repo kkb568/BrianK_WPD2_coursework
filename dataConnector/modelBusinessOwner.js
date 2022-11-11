@@ -1,4 +1,6 @@
 const nedb = require('nedb');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class app {
     constructor(dbFilePath) {
@@ -8,17 +10,18 @@ class app {
 
     addBusinessOwner(Name,Email,Password) {
         return new Promise((resolve,reject) => {
+            const hashedPassword = bcrypt.hashSync(Password,saltRounds);
             this.db.insert({
                 OwnerName:Name,
                 OwnerEmail:Email,
                 connectedCollaborators: [],
-                password:Password
-            }, function(error,entry) {
+                password:hashedPassword
+            }, function(error) {
                 if(error) {
                     reject(error);
                 }
                 else {
-                    resolve(entry);
+                    resolve();
                 }
             });
         });

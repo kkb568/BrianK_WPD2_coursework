@@ -1,4 +1,6 @@
 const nedb = require('nedb');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 class app1 {
     constructor(dbFilePath) {
@@ -8,13 +10,14 @@ class app1 {
 
     addCollaborator(Name,Email,Business,Category,Services,Password) {
         return new Promise((resolve,reject) => {
+            const hashedPassword = bcrypt.hashSync(Password,saltRounds);
             this.db.insert({
                 name:Name,
                 email:Email,
                 business:Business,
                 category:Category,
                 services:Services,
-                password:Password
+                password:hashedPassword
             }, function(error,entry){
                 if(error) {
                     reject(error);
