@@ -3,6 +3,7 @@ const appDAO1 = require('../dataConnector/modelCollaborator');
 const appDAO2 = require('../dataConnector/modelPlans');
 const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
+const alert = require('alert');
 // const db = new appDAO('database/businessOwner.db');
 // const db1 = new appDAO1('database/collaborator.db');
 // const db2 = new appDAO2('database/plans.db');
@@ -69,6 +70,9 @@ exports.newBusinessOwner = async(req,res,next) => {
                             console.log('Promise rejected', err);
                         })
                 }
+                else {
+                    alert('Business owner exists. Login if you have an account.')
+                }
             })
     }
     catch (error) {
@@ -82,19 +86,21 @@ exports.loginOwner = async (req,res,next) => {
         console.log("Email: ", req.body.email);
         db.viewBusinessOwnerWithPassword(req.body.name, req.body.email)
         .then((record) => {
-            if (!record) {
-                console.log("user ", req.body.name, " not found");
+            if (record.length==0) {
+                alert("User does not exists. Check your credentials and try again or sign in if you have no account.");
                 // return res.status(401).send();
             }
-            bcrypt.compare(req.body.password, record[0].password, function (err, result) {
-                if (result) {
-                    res.locals.business = record[0];
-                    next();
-                }
-                else {
-                    return res.status(403).send();
-                }
-            });
+            else {
+                bcrypt.compare(req.body.password, record[0].password, function (err, result) {
+                    if (result) {
+                        res.locals.business = record[0];
+                        next();
+                    }
+                    else {
+                        return res.status(403).send();
+                    }
+                });
+            }
         });
               
     } 
@@ -109,11 +115,12 @@ exports.loginCollaborator = async (req,res,next) => {
         console.log("Email: ", req.body.email);
         db1.viewCollaboratorWithPassword(req.body.name, req.body.email)
         .then((record) => {
-            if (!record) {
-                console.log("user ", req.body.name, " not found");
+            if (record.length==0) {
+                alert("User does not exists. Check your credentials and try again or sign in if you have no account.");
                 // return res.status(401).send();
             }
-            bcrypt.compare(req.body.password, record[0].password, function (err, result) {
+            else {
+                bcrypt.compare(req.body.password, record[0].password, function (err, result) {
                 if (result) {
                     res.render('collaboratorPage', {
                         'name': record[0].name,
@@ -128,6 +135,7 @@ exports.loginCollaborator = async (req,res,next) => {
                     return res.status(403).send();
                 }
             });
+            }
         });
               
     } 
@@ -238,6 +246,9 @@ exports.newCollaborator = async(req,res) => {
                 .catch((err) => {
                     console.log('Promise rejected', err);
                 });
+            }
+            else {
+                alert('Collaborator exists. Login if you have an account.')
             }
         });
     }
