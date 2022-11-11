@@ -742,6 +742,7 @@ exports.checkOwners1 = async(req,res) => {
 
 exports.deleteBusinessOwner = async(req,res) => {
     try {
+        res.clearCookie("jwt");
         db2.viewPlansByOwner(
             req.params.name,
             req.params.email
@@ -770,6 +771,7 @@ exports.deleteBusinessOwner = async(req,res) => {
 
 exports.deleteCollaborator = async(req,res) => {
     try {
+        res.clearCookie("jwt");
         db.viewOwnersByCollaborator(
             req.params.name,
             req.params.email
