@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {login, createCookie, verify} = require('../auth/authOwner');
 const controller = require('../appControl/appControl');
 
 //Routes to the main four pages.
@@ -11,10 +12,16 @@ router.get("/signup",controller.signupPage);
 //  Called when business owner creates a new business owner account.
 router.post("/BusinessOwnerPage",
     controller.newBusinessOwner,
+    createCookie,
     controller.viewCollaborators,
     controller.renderBusinessPage);
 //  Called when collaborator creates a new collaborator account.
 router.post("/CollaboratorPage",controller.newCollaborator);
+router.post('/loginOwner',
+    login,
+    createCookie,
+    controller.viewCollaborators,
+    controller.renderBusinessPage);
 //  Called when business owner updates his or her profile information.
 router.post("/updateBusinessOwner/:name/:email",
     controller.updateBusinessOwner,
@@ -78,6 +85,7 @@ router.get("/confirmComplete/:ownerName/:ownerEmail/:agenda/:tasks/:from/:to/:ou
     controller.confirmCompletion,
     controller.checkOwnerDetails,
     controller.checkOwners1)
+router.get("/logout",verify,controller.logout);
 
 //404 error functionality.
 router.use(controller.fileError);

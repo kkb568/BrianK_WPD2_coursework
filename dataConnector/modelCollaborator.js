@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 class app1 {
-    constructor(dbFilePath) {
-        // this.db = new nedb();
-        this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor() {
+        this.db = new nedb();
+        // this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addCollaborator(Name,Email,Business,Category,Services,Password) {

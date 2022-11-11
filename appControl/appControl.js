@@ -2,12 +2,12 @@ const appDAO = require('../dataConnector/modelBusinessOwner');
 const appDAO1 = require('../dataConnector/modelCollaborator');
 const appDAO2 = require('../dataConnector/modelPlans');
 const dayjs = require('dayjs');
-const db = new appDAO('database/businessOwner.db');
-const db1 = new appDAO1('database/collaborator.db');
-const db2 = new appDAO2('database/plans.db');
-// const db = new appDAO();
-// const db1 = new appDAO1();
-// const db2 = new appDAO2();
+// const db = new appDAO('database/businessOwner.db');
+// const db1 = new appDAO1('database/collaborator.db');
+// const db2 = new appDAO2('database/plans.db');
+const db = new appDAO();
+const db1 = new appDAO1();
+const db2 = new appDAO2();
 
 //Route to the homepage.
 exports.landing_page = async(req,res) => {
@@ -67,9 +67,6 @@ exports.newBusinessOwner = async(req,res,next) => {
                         .catch((err) => {
                             console.log('Promise rejected', err);
                         })
-                }
-                else {
-                    console.log("User exists.");
                 }
             })
     }
@@ -735,6 +732,13 @@ exports.deleteCollaborator = async(req,res) => {
     catch (error) {
         console.log(error.message);
     }
+}
+
+exports.logout = function(req,res) {
+    res
+        .clearCookie("jwt")
+        .status(200)
+        .redirect("/");
 }
 
 exports.fileError = function(req,res) {

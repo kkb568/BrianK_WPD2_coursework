@@ -1,9 +1,9 @@
 const nedb = require('nedb');
 
 class app2 {
-    constructor(dbFilePath) {
-        // this.db = new nedb();
-        this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor() {
+        this.db = new nedb();
+        // this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addPlan(ownerName,ownerEmail,name,email,Agenda,Tasks,originFrom,From,originTo,To,Outcome) {

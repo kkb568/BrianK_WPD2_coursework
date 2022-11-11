@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 class app {
-    constructor(dbFilePath) {
-        // this.db = new nedb();
-        this.db = new nedb({filename:dbFilePath,autoload:true});
+    constructor() {
+        this.db = new nedb();
+        // this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addBusinessOwner(Name,Email,Password) {
@@ -29,12 +29,13 @@ class app {
 
     viewBusinessOwner(Name,Email) {
         return new Promise((resolve,reject) => {
-            this.db.find({OwnerName:Name,OwnerEmail:Email},{_id:0,OwnerName:1,OwnerEmail:1}, function(error,entry) {
+            this.db.find({OwnerName:Name,OwnerEmail:Email},{_id:0,OwnerName:1,OwnerEmail:1,password:1}, function(error,entry) {
                 if(error) {
                     reject(error);
                 }
                 else {
                     resolve(entry);
+                    console.log("Details: ", entry);
                 }
             });
         });

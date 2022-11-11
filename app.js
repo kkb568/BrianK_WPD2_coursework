@@ -10,6 +10,11 @@ const mustache = require('mustache-express');
 app.engine('mustache',mustache());
 app.set('view engine','mustache');
 
+require('dotenv').config();
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 const router = require('./appRoutes/appRoutes')
 app.use('/',router);
 
