@@ -88,7 +88,6 @@ exports.loginOwner = async (req,res,next) => {
         .then((record) => {
             if (record.length==0) {
                 alert("User does not exists. Check your credentials and try again or sign in if you have no account.");
-                // return res.status(401).send();
             }
             else {
                 bcrypt.compare(req.body.password, record[0].password, function (err, result) {
@@ -97,7 +96,7 @@ exports.loginOwner = async (req,res,next) => {
                         next();
                     }
                     else {
-                        return res.status(403).send();
+                        alert('Wrong password.');
                     }
                 });
             }
@@ -109,7 +108,7 @@ exports.loginOwner = async (req,res,next) => {
     }
 };
 
-exports.loginCollaborator = async (req,res,next) => {
+exports.loginCollaborator = async (req,res) => {
     try {
         console.log("User: ", req.body.name);
         console.log("Email: ", req.body.email);
@@ -117,7 +116,6 @@ exports.loginCollaborator = async (req,res,next) => {
         .then((record) => {
             if (record.length==0) {
                 alert("User does not exists. Check your credentials and try again or sign in if you have no account.");
-                // return res.status(401).send();
             }
             else {
                 bcrypt.compare(req.body.password, record[0].password, function (err, result) {
@@ -132,7 +130,7 @@ exports.loginCollaborator = async (req,res,next) => {
                     })
                 }
                 else {
-                    return res.status(403).send();
+                    alert('Wrong password.');
                 }
             });
             }
@@ -633,13 +631,12 @@ exports.viewPlanByColl = async(req,res,next) => {
                 for(let i=0;i<entry.length;i++) {
                     if(entry[i].completed=='false') {
                         res.locals.current = entry;
-                        next();
                     }
                     else {
                         res.locals.past = entry;
-                        next();
                     }
                 }
+                next();
             }
         })
         .catch((err) => {
