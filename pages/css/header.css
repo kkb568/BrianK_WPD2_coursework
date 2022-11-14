@@ -43,3 +43,29 @@ header a:hover {
     color: black;
     transition: 1s;
 }
+
+footer {
+    width: 100%;
+    background-color: #353CDD;
+    color: white;
+    padding: 20px;
+}
+
+footer h3, footer nav {
+    text-align: center;
+}
+
+footer h3 {
+    font-weight: bold;
+}
+
+footer a {
+    padding: 2%;
+    color:white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color:white;
+}
