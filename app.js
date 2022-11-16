@@ -3,7 +3,7 @@ const app = express();
 
 const path = require('path');
 const pages = path.join(__dirname,'pages');
-app.use(express.static(pages));
+app.use(express.static(pages,{extensions:['html']}));
 app.use(express.urlencoded({extended:false}));
 
 const mustache = require('mustache-express');
