@@ -96,7 +96,7 @@ exports.loginOwner = async (req,res,next) => {
                         next();
                     }
                     else {
-                        alert('Wrong password.');
+                        alert('Incorrect credentials.');
                     }
                 });
             }
@@ -130,7 +130,7 @@ exports.loginCollaborator = async (req,res) => {
                     })
                 }
                 else {
-                    alert('Wrong password.');
+                    alert('Incorrect credentials.');
                 }
             });
             }
