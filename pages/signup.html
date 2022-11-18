@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/credentials.css" rel="stylesheet">
     <script type="text/javascript" src="js/openTabs.js"></script>
-    <script type="text/javascript" src="js/formChange.js"></script>
+    <script type="text/javascript" src="js/showPassword.js"></script>
     <title>Signup</title>
 </head>
 <body>
@@ -33,63 +34,19 @@
             <label for="business">Business name: </label>
             <input type="text" id="business" name="business" required><br><br>
             <label for="category">Business category: </label>
-            <select class="custom-select" id="category" name="category" onclick="showServices()" required>
-                <option value="estate">Real estate</option>
-                <option value="education">Education</option>
-                <option value="wellness">Wellness</option>
+            <select class="custom-select" id="category" name="category" required>
+                <option>Real estate</option>
+                <option>Education</option>
+                <option>Wellness</option>
             </select><br><br>
-            <p>Services: </p>
-            <div id="boxes">
-                <fieldset id="real_estate">
-                    <label for="land">Land: </label>
-                    <input type="checkbox" id="land" name="land"><br><br>
-                    <label for="residential">Residential: </label>
-                    <input type="checkbox" id="residential" name="residential"><br><br>
-                    <label for="commercial">Commercial: </label>
-                    <input type="checkbox" id="commercial" name="commercial"><br><br>
-                    <label for="industrial">Industrial: </label>
-                    <input type="checkbox" id="industrial" name="industrial"><br><br>
-                    <label for="other">Other (please specify): </label>
-                    <input type="checkbox" id="other" name="other" onchange="openOtherText('other','otherValue')">
-                    <input type="text" id="otherValue" name="other" style="visibility:hidden">
-                </fieldset>
-                <fieldset id="education">
-                    <label for="schools">School: </label>
-                    <input type="checkbox" id="schools" name="schools"><br><br>
-                    <label for="supplement">Supplemental education service: </label>
-                    <input type="checkbox" id="supplement" name="supplement"><br><br>
-                    <label for="publish">Educational products and publishing service: </label>
-                    <input type="checkbox" id="publish" name="publish"><br><br>
-                    <label for="support">Education support service: </label>
-                    <input type="checkbox" id="support" name="support"><br><br>
-                    <label for="other1">Other (please specify): </label>
-                    <input type="checkbox" id="other1" name="other1" onchange="openOtherText('other1','otherValue1')">
-                    <input type="text" id="otherValue1" name="other" style="visibility:hidden">
-                </fieldset>
-                <fieldset id="wellness">
-                    <label for="stress">Stress reduction: </label>
-                    <input type="checkbox" id="stress" name="stress"><br><br>
-                    <label for="weight">Weight loss: </label>
-                    <input type="checkbox" id="weight" name="weight"><br><br>
-                    <label for="smoking">Smoking cessation: </label>
-                    <input type="checkbox" id="smoking" name="smoking"><br><br>
-                    <label for="screen">Health screening: </label>
-                    <input type="checkbox" id="screen" name="screen"><br><br>
-                    <label for="exercise">Exercise: </label>
-                    <input type="checkbox" id="exercise" name="exercise"><br><br>
-                    <label for="nutrition">Nutrition education: </label>
-                    <input type="checkbox" id="nutrition" name="nutrition"><br><br>
-                    <label for="vaccination">Vaccination clinics: </label>
-                    <input type="checkbox" id="vaccination" name="vaccination"><br><br>
-                    <label for="other2">Other (please specify): </label>
-                    <input type="checkbox" id="other2" name="other2" onchange="openOtherText('other2','otherValue2')">
-                    <input type="text" id="otherValue2" name="other" style="visibility:hidden">
-                </fieldset>
-            </div><br>
+            <label for="services">Services: </label>
+            <input type="text" id="services" name="services" multiple required><br><br>
             <label for="password">Password: </label>
-            <input type="password" id="password" name="password" required minlength="8"><br><br>
+            <input type="password" id="pass" name="password" required minlength="8">
+            <input type="checkbox" onclick="showPassword('pass')"> Show Password<br><br>
             <label for="password1">Re-enter password: </label>
-            <input type="password" id="password1" name="password1" required minlength="8"><br><br>
+            <input type="password" id="pass1" name="password1" required minlength="8">
+            <input type="checkbox" onclick="showPassword('pass1')"> Show Password<br><br>
             <button type="submit" id="signup">Sign-up</button>
         </form><br>
         <p>Existing collaborator? Login <a href="login" style="text-decoration:underline">here</a></p>
@@ -101,12 +58,17 @@
             <label for="email">Email address: </label>
             <input type="email" id="email" name="email" required><br><br>
             <label for="password">Password: </label>
-            <input type="password" id="password" name="password" required minlength="8"><br><br>
+            <input type="password" id="pass2" name="password" required minlength="8">
+            <input type="checkbox" onclick="showPassword('pass2')"> Show Password<br><br>
             <label for="password1">Re-enter password: </label>
-            <input type="password" id="password1" name="password1" required minlength="8"><br><br>
+            <input type="password" id="pass3" name="password1" required minlength="8">
+            <input type="checkbox" onclick="showPassword('pass3')"> Show Password<br><br>
             <button type="submit" id="signup">Sign-up</button><br><br>
         </form><br>
         <p>Existing business owner? Login <a href="login" style="text-decoration:underline">here</a></p>
     </div>
+    <script>
+        
+    </script>
 </body>
 </html>

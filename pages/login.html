@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/credentials.css" rel="stylesheet">
     <script type="text/javascript" src="js/openTabs.js"></script>
+    <script type="text/javascript" src="js/showPassword.js"></script>
     <title>Login</title>
 </head>
 <body>
@@ -30,7 +31,8 @@
             <label for="email">Email address: </label>
             <input type="email" name="email" required><br><br>
             <label for="password">Password: </label>
-            <input type="password" name="password" required><br><br>
+            <input type="password" name="password" id="password" required>
+            <input type="checkbox" onclick="showPassword('password')"> Show Password<br><br>
             <button>Login</button>
         </form><br>
         <p>New collaborator? Sign-up <a href="signup" style="text-decoration:underline">here</a></p>
@@ -42,7 +44,8 @@
             <label for="email">Email address: </label>
             <input type="email" name="email" required><br><br>
             <label for="password">Password: </label>
-            <input type="password" name="password" required><br><br>
+            <input type="password" name="password" id="password1" required>
+            <input type="checkbox" onclick="showPassword('password1')"> Show Password<br><br>
             <button>Login</button>
         </form><br>
         <p>New business owner? Sign-up <a href="signup" style="text-decoration:underline">here</a></p>
