@@ -53,7 +53,8 @@ exports.signupPage = async(req,res) => {
 
 exports.newBusinessOwner = async(req,res,next) => {
     try {
-        db.viewBusinessOwner(req.body.name,req.body.email)
+        if(req.body.password==req.body.password1) {
+            db.viewBusinessOwner(req.body.name,req.body.email)
             .then((record) => {
                 if(record.length==0) {
                     db.addBusinessOwner(
@@ -71,9 +72,13 @@ exports.newBusinessOwner = async(req,res,next) => {
                         })
                 }
                 else {
-                    alert('Business owner exists. Login if you have an account.')
+                    alert('Business owner exists. Try again or login if you have an account.')
                 }
             })
+        }
+        else {
+            alert('The two passwords do not match.')
+        }
     }
     catch (error) {
         console.log(error.message);
@@ -218,37 +223,42 @@ exports.renderBusinessPage = async(req,res) => {
 
 exports.newCollaborator = async(req,res) => {
     try {
-        db1.viewCollaborator(req.body.name,req.body.email)
-        .then((record) => {
-            if(record.length==0) {
-                db1.addCollaborator(
-                    req.body.name,
-                    req.body.email,
-                    req.body.business,
-                    req.body.category,
-                    req.body.services,
-                    req.body.password
-                );
-                db1.viewCollaborator(req.body.name,req.body.email)
-                .then((list) => {
-                    res.render('collaboratorPage', {
-                        'name': req.body.name,
-                        'email': req.body.email,
-                        'business': req.body.business,
-                        'category': req.body.category,
-                        'services': req.body.services,
-                        'profile': list
-                    })
-                    console.log('Promise resolved.');
-                })
-                .catch((err) => {
-                    console.log('Promise rejected', err);
+        if(req.body.password==req.body.password1) {
+            db1.viewCollaborator(req.body.name, req.body.email)
+                .then((record) => {
+                    if (record.length == 0) {
+                        db1.addCollaborator(
+                            req.body.name,
+                            req.body.email,
+                            req.body.business,
+                            req.body.category,
+                            req.body.services,
+                            req.body.password
+                        );
+                        db1.viewCollaborator(req.body.name, req.body.email)
+                            .then((list) => {
+                                res.render('collaboratorPage', {
+                                    'name': req.body.name,
+                                    'email': req.body.email,
+                                    'business': req.body.business,
+                                    'category': req.body.category,
+                                    'services': req.body.services,
+                                    'profile': list
+                                })
+                                console.log('Promise resolved.');
+                            })
+                            .catch((err) => {
+                                console.log('Promise rejected', err);
+                            });
+                    }
+                    else {
+                        alert('Collaborator exists. Try again or login if you have an account.')
+                    }
                 });
-            }
-            else {
-                alert('Collaborator exists. Login if you have an account.')
-            }
-        });
+        }
+        else {
+            alert('The two passwords do not match.');
+        }
     }
     catch (error) {
         console.log(error.message);
@@ -759,7 +769,7 @@ exports.deleteBusinessOwner = async(req,res) => {
         });
         db.deleteBusinessOwner(req.params.name,req.params.email);
         console.log('Entry deleted successfully');
-        res.redirect('/signup.html');
+        res.redirect('/');
     } 
     catch (error) {
         console.log(error.message);
@@ -803,7 +813,7 @@ exports.deleteCollaborator = async(req,res) => {
         });
         db1.deleteCollaborator(req.params.name,req.params.email);
         console.log('Entry deleted successfully');
-        res.redirect('/signup.html');
+        res.redirect('/');
     } 
     catch (error) {
         console.log(error.message);
