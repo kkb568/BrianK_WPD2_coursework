@@ -11,7 +11,7 @@ body {
     margin-left:10%;
 }
 
-.container2 {
+.container2, .container3 {
     background-color: #353CDD;
     margin-left:-1%;
     width:102%;

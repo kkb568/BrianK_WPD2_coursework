@@ -51,11 +51,23 @@
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15%;
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
     width: 70%;
 }
 
 .modal-content a {
     cursor: pointer;
+}
+
+.modal-content button {
+    margin: 2%;
+}
+
+@media screen and (max-width: 576px) {
+    .modal-content {
+        margin-top: 40%;
+    }
 }
