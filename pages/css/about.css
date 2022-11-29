@@ -49,14 +49,42 @@ p {
     margin-left:25%;
 }
 
-@media screen and (max-width: 500px) {
-    #card1 img {
+@media screen and (max-width: 1300px) {
+    #card1 img, #card2 img {
         width:auto;
         height:200px;
-        margin-left:5%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #card1 img {
+        width:auto;
+        height:150px;
+        margin-left:20%;
     }
     
     #card2 img {
+        width:auto;
+        height:180px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #card1 img {
+        width:auto;
+        height:100px;
+        margin-left:25%;
+    }
+    
+    #card2 img {
+        width:auto;
+        height:100px;
+        margin-left:30%;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #card1 img {
         margin-left:10%;
     }
 }
