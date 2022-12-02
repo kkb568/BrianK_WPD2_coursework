@@ -24,9 +24,13 @@ router.post('/loginOwner',
     controller.loginOwner,
     createCookie,
     controller.viewCollaborators,
+    controller.viewOwnerConnections1,
+    controller.viewPlans1,
     controller.renderBusinessPage);
 router.post('/loginCollaborator',
     createCookie1,
+    controller.viewPlanByColl1,
+    controller.checkOwners2,
     controller.loginCollaborator
     );
 //  Called when business owner updates his or her profile information.

@@ -131,7 +131,10 @@ exports.loginCollaborator = async (req,res) => {
                         'business': record[0].business,
                         'category': record[0].category,
                         'services': record[0].services,
-                        'profile': record[0]
+                        'profile': record[0],
+                        'connectedOwners': res.locals.owners,
+                        'currentPlans': res.locals.current,
+                        'pastPlans': res.locals.past
                     })
                 }
                 else {
@@ -412,6 +415,30 @@ exports.checkOwners = async(req,res,next) => {
     }
 }
 
+exports.checkOwners2 = async(req,res,next) => {
+    try {
+        db.viewOwnersByCollaborator(
+            req.body.name,
+            req.body.email
+        )
+        .then((record) => {
+            if(record.length==0) {
+                next();
+            }
+            else {
+                res.locals.owners = record;
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
 exports.renderCollaboratorPage = async(req,res) => {
     try {
         res.render('collaboratorPage', {
@@ -450,11 +477,59 @@ exports.viewOwnerConnections = async(req,res,next) => {
     }
 }
 
+exports.viewOwnerConnections1 = async(req,res,next) => {
+    try {
+        db.viewConnectedCollaborators(
+            req.body.name,
+            req.body.email
+        )
+        .then((entry) => {
+            if(entry.length==0) {
+                next();
+            }
+            else {
+                res.locals.connected = entry[0].connectedCollaborators;
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
 exports.viewPlans = async(req,res,next) => {
     try {
         db2.viewPlansByOwner(
             req.params.ownerName,
             req.params.ownerEmail
+        )
+        .then((entry) => {
+            if(entry.length==0) {
+                next();
+            }
+            else {
+                res.locals.plans = entry;
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.viewPlans1 = async(req,res,next) => {
+    try {
+        db2.viewPlansByOwner(
+            req.body.name,
+            req.body.email
         )
         .then((entry) => {
             if(entry.length==0) {
@@ -632,6 +707,37 @@ exports.viewPlanByColl = async(req,res,next) => {
         db2.viewPlanByCollaborator(
             req.params.name,
             req.params.email
+        )
+        .then((entry) => {
+            if(entry.length==0) {
+                next();
+            }
+            else {
+                for(let i=0;i<entry.length;i++) {
+                    if(entry[i].completed=='false') {
+                        res.locals.current = entry;
+                    }
+                    else {
+                        res.locals.past = entry;
+                    }
+                }
+                next();
+            }
+        })
+        .catch((err) => {
+            console.log('Promise rejected', err);
+        });
+    } 
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+exports.viewPlanByColl1 = async(req,res,next) => {
+    try {
+        db2.viewPlanByCollaborator(
+            req.body.name,
+            req.body.email
         )
         .then((entry) => {
             if(entry.length==0) {
