@@ -25,49 +25,52 @@
     </div>
     <a href="/">< Back</a><br><br>
     <div id="collaborator" class="tabContent">
-        <form action="/CollaboratorPage" method="post">
-            <label for="name">Name: </label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email address: </label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="business">Business name: </label>
-            <input type="text" id="business" name="business" required><br><br>
-            <label for="category">Business category: </label>
-            <select class="custom-select" id="category" name="category" required>
-                <option>Real estate</option>
-                <option>Education</option>
-                <option>Wellness</option>
-            </select><br><br>
-            <label for="services">Services: </label>
-            <input type="text" id="services" name="services" multiple required><br><br>
-            <label for="password">Password: </label>
-            <input type="password" id="pass" name="password" required minlength="8">
-            <input type="checkbox" onclick="showPassword('pass')"> Show Password<br><br>
-            <label for="password1">Re-enter password: </label>
-            <input type="password" id="pass1" name="password1" required minlength="8">
-            <input type="checkbox" onclick="showPassword('pass1')"> Show Password<br><br>
-            <button type="submit" id="signup">Sign-up</button>
-        </form><br>
-        <p>Existing collaborator? Login <a href="login" style="text-decoration:underline">here</a></p>
+        <p style="text-align:center">New collaborator? Fill in the form below to create an account.</p>
+        <div id="form-center">
+            <form action="/CollaboratorPage" method="post">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email address: </label>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="business">Business name: </label>
+                <input type="text" id="business" name="business" required><br><br>
+                <label for="category">Business category: </label>
+                <select class="custom-select" id="category" name="category" required>
+                    <option>Real estate</option>
+                    <option>Education</option>
+                    <option>Wellness</option>
+                </select><br><br>
+                <label for="services">Services: </label>
+                <input type="text" id="services" name="services" multiple required><br><br>
+                <label for="password">Password: </label>
+                <input type="password" id="pass" name="password" required minlength="8"><br>
+                <input type="checkbox" onclick="showPassword('pass')"> Show Password<br><br>
+                <label for="password1">Re-enter password: </label>
+                <input type="password" id="pass1" name="password1" required minlength="8"><br>
+                <input type="checkbox" onclick="showPassword('pass1')"> Show Password<br><br>
+                <button type="submit" id="signup">Sign-up</button><br><br>
+                <p>Existing collaborator? Login <a href="login" style="text-decoration:underline">here</a></p>
+            </form>
+        </div><br><br>
     </div>
     <div id="businessOwner" class="tabContent">
-        <form action="/BusinessOwnerPage" method="post">
-            <label for="name">Name: </label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email address: </label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="password">Password: </label>
-            <input type="password" id="pass2" name="password" required minlength="8">
-            <input type="checkbox" onclick="showPassword('pass2')"> Show Password<br><br>
-            <label for="password1">Re-enter password: </label>
-            <input type="password" id="pass3" name="password1" required minlength="8">
-            <input type="checkbox" onclick="showPassword('pass3')"> Show Password<br><br>
-            <button type="submit" id="signup">Sign-up</button><br><br>
-        </form><br>
-        <p>Existing business owner? Login <a href="login" style="text-decoration:underline">here</a></p>
+        <p style="text-align:center">New business owner? Fill in the form below to create an account.</p>
+        <div id="form-center">
+            <form action="/BusinessOwnerPage" method="post">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="name" required><br><br>
+                <label for="email">Email address: </label>
+                <input type="email" id="email" name="email" required><br><br>
+                <label for="password">Password: </label>
+                <input type="password" id="pass2" name="password" required minlength="8"><br>
+                <input type="checkbox" onclick="showPassword('pass2')"> Show Password<br><br>
+                <label for="password1">Re-enter password: </label>
+                <input type="password" id="pass3" name="password1" required minlength="8"><br>
+                <input type="checkbox" onclick="showPassword('pass3')"> Show Password<br><br>
+                <button type="submit" id="signup">Sign-up</button><br><br>
+                <p>Existing business owner? Login <a href="login" style="text-decoration:underline">here</a></p>
+            </form>
+        </div>
     </div>
-    <script>
-        
-    </script>
 </body>
 </html>
