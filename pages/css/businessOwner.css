@@ -66,8 +66,33 @@
     margin: 2%;
 }
 
+#content-center {
+    display: block;
+    justify-items: center;
+    margin: 0 auto;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 40%;
+    height: auto;
+    padding:2%;
+    box-shadow:#ccc 4px 4px 4px;
+}
+
+#content-center button {
+    margin-left: 30%;
+}
+
 @media screen and (max-width: 576px) {
     .modal-content {
         margin-top: 40%;
+    }
+
+    #content-center {
+        width: 80%;
+        padding: 5%;
+    }
+
+    #content-center button {
+        width:120px;
     }
 }

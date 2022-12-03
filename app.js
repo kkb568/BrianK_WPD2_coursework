@@ -15,7 +15,7 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-const router = require('./appRoutes/appRoutes')
+const router = require('./appRoutes/appRoutes');
 app.use('/',router);
 
 app.listen(3000, () => {

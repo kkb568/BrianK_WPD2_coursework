@@ -8,6 +8,7 @@
 <body>
     <a onclick = "history.back()" style="cursor:pointer;">< Back</a><br><br>
     <h2 style="font-weight:bold;text-align:center">Create plan</h2><br>
+    <div id="form-center">
         <form action="/addPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}" method="post">
             <label for="agenda">Agenda: </label>
             <input type="text" id="agenda" name="agenda" required><br><br>
@@ -22,5 +23,6 @@
             <input type="text" id="outcome" name="outcome" required><br><br>
             <button type="submit" id="submit">Submit</button>
         </form>
+    </div>
 </body>
 </html>

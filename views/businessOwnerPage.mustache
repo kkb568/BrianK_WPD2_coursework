@@ -53,9 +53,11 @@
         </div>
     </div><br>
     <div id ="profile" class="tabContent">
-        Name: {{OwnerName}}<br><br>
-        Email address: {{OwnerEmail}}<br><br>
-        <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
+        <div id="content-center">
+            Name: {{OwnerName}}<br><br>
+            Email address: {{OwnerEmail}}<br><br>
+            <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
+        </div>
         <div id="Modal2" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -74,57 +76,61 @@
         </div>
     </div>
     <div id="connected" class="tabContent">
-        {{#connected}}
-            Name: {{name}}<br><br>
-            Email address: {{email}}<br><br>
-            Business name: {{business}}<br><br>
-            Business category: {{category}}<br><br>
-            Services: {{services}}<br><br>
-            <h2 style="font-weight: bold;">Plans</h2><br>
-            {{#plans}}
-                Agenda: {{agenda}}<br><br>
-                Tasks: {{tasks}}<br><br>
-                Duration: {{from}} to {{to}}<br><br>
-                Outcome: {{outcome}}<br><br>
-                Completed: {{completed}}<br><br>
-                <button id=edit1>
-                    <a href='/editPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{originFrom}}/{{originTo}}/{{outcome}}'>Edit plan</a>
-                </button>
-                <button id=deletePlan>
-                    <a href="/deletePlan/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}/{{completed}}">Delete plan</a>
-                </button><br><br>
-            {{/plans}}
-            {{^plans}}
-                <p>No plans created</p>
-            {{/plans}}
-            <button id="newPlan"><a href='/addPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}'>Create new plan</a></button><br><br>
-            <button id="disconnect"><a href="/disconnectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}">Disconnect</a></button>
-            <br><br>
-        {{/connected}}
-        {{^connected}}
-            <p>No connected collaborator.</p>
-        {{/connected}}
+        <div id="content-center">
+            {{#connected}}
+                Name: {{name}}<br><br>
+                Email address: {{email}}<br><br>
+                Business name: {{business}}<br><br>
+                Business category: {{category}}<br><br>
+                Services: {{services}}<br><br>
+                <h2 style="font-weight: bold;">Plans</h2><br>
+                {{#plans}}
+                    Agenda: {{agenda}}<br><br>
+                    Tasks: {{tasks}}<br><br>
+                    Duration: {{from}} to {{to}}<br><br>
+                    Outcome: {{outcome}}<br><br>
+                    Completed: {{completed}}<br><br>
+                    <button id=edit1>
+                        <a href='/editPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{agenda}}/{{tasks}}/{{originFrom}}/{{originTo}}/{{outcome}}'>Edit plan</a>
+                    </button><br><br>
+                    <button id=deletePlan>
+                        <a href="/deletePlan/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}/{{completed}}">Delete plan</a>
+                    </button><br><br>
+                {{/plans}}
+                {{^plans}}
+                    <p>No plans created</p>
+                {{/plans}}
+                <button id="newPlan"><a href='/addPlan/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}'>Create new plan</a></button><br><br>
+                <button id="disconnect"><a href="/disconnectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}">Disconnect</a></button>
+                <br><br>
+            {{/connected}}
+            {{^connected}}
+                <p>No connected collaborator.</p>
+            {{/connected}}
+        </div><br><br>
     </div>
     <div id="available" class="tabContent">
-        <button id="refresh"><a href="/checkAvailableCollaborators/{{OwnerName}}/{{OwnerEmail}}">Refresh</a></button><br><br>
-        {{#collaboratorProfile}}
-        <form action="/connectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}" method="post">
-            <label for="name">Name: </label>
-            <input type="text" name="name" value="{{name}}" readonly><br><br>
-            <label for="email">Email address: </label>
-            <input type="email" name="email" value="{{email}}" readonly><br><br>
-            <label for="business">Business name: </label>
-            <input type="text" name="business" value="{{business}}" readonly><br><br>
-            <label for="category">Business category: </label>
-            <input type="text" name="category" value="{{category}}" readonly><br><br>
-            <label for="services">Email address: </label>
-            <input type="text" name="services" value="{{services}}" readonly><br><br>
-            <button id="connect">Connect</button><br><br>
-        </form>
-        {{/collaboratorProfile}}
-        {{^collaboratorProfile}}
-            <p>No available collaborator.</p>
-        {{/collaboratorProfile}}
+        <div id="content-center">
+            <button id="refresh"><a href="/checkAvailableCollaborators/{{OwnerName}}/{{OwnerEmail}}">Refresh</a></button><br><br>
+            {{#collaboratorProfile}}
+            <form action="/connectCollaborator/{{OwnerName}}/{{OwnerEmail}}/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}" method="post">
+                <label for="name">Name: </label>
+                <input type="text" name="name" value="{{name}}" readonly><br><br>
+                <label for="email">Email address: </label>
+                <input type="email" name="email" value="{{email}}" readonly><br><br>
+                <label for="business">Business name: </label>
+                <input type="text" name="business" value="{{business}}" readonly><br><br>
+                <label for="category">Business category: </label>
+                <input type="text" name="category" value="{{category}}" readonly><br><br>
+                <label for="services">Email address: </label>
+                <input type="text" name="services" value="{{services}}" readonly><br><br>
+                <button id="connect">Connect</button><br><br>
+            </form>
+            {{/collaboratorProfile}}
+            {{^collaboratorProfile}}
+                <p>No available collaborator.</p>
+            {{/collaboratorProfile}}
+        </div><br><br>
     </div>
 </body>
 </html>

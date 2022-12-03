@@ -48,17 +48,19 @@
         </div>
     </div><br>
     <div id="profile" class="tabContent">
-        {{#profile}}
-            Name: {{name}}<br><br>
-            Email address: {{email}}<br><br>
-            Business name: {{business}}<br><br>
-            Business category: {{category}}<br><br>
-            Services: {{services}}<br><br>
-            <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
-        {{/profile}}
-        {{^profile}}
-            <p>No entry</p>
-        {{/profile}}
+        <div id="content-center">
+            {{#profile}}
+                Name: {{name}}<br><br>
+                Email address: {{email}}<br><br>
+                Business name: {{business}}<br><br>
+                Business category: {{category}}<br><br>
+                Services: {{services}}<br><br>
+                <button id="edit" onclick="openModal('Modal2')">Edit profile</button>
+            {{/profile}}
+            {{^profile}}
+                <p>No entry</p>
+            {{/profile}}
+        </div><br><br>
         <div id="Modal2" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -81,35 +83,37 @@
         </div>
     </div>
     <div id="connected" class="tabContent">
-        <button id="refresh"><a href="/checkConnectedOwners/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}">Refresh</a></button><br><br>
-        {{#connectedOwners}}
-            Name: {{OwnerName}}<br><br>
-            Email address: {{OwnerEmail}}<br><br>
-            <h2 style="font-weight:bold">Current plans</h2>
-            {{#currentPlans}}
-                Agenda: {{agenda}}<br><br>
-                Tasks: {{tasks}}<br><br>
-                Duration: {{from}} to {{to}}<br><br>
-                Outcome: {{outcome}}<br><br>
-                <button id="completed"><a href="/confirmComplete/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}">Completed</a></button><br><br>
-            {{/currentPlans}}
-            {{^currentPlans}}
-                <p>No available current plans.</p>
-            {{/currentPlans}}
-            <h2 style="font-weight:bold">Past plans</h2>
-            {{#pastPlans}}
-                Agenda: {{agenda}}<br><br>
-                Tasks: {{tasks}}<br><br>
-                Duration: {{from}} to {{to}}<br><br>
-                Outcome: {{outcome}}<br><br>
-            {{/pastPlans}}
-            {{^pastPlans}}
-                <p>No past plans.</p>
-            {{/pastPlans}}
-        {{/connectedOwners}}
-        {{^connectedOwners}}
-            <p>No available connected business owners.</p>
-        {{/connectedOwners}}
+        <div id="content-center">
+            <button id="refresh"><a href="/checkConnectedOwners/{{name}}/{{email}}/{{business}}/{{category}}/{{services}}">Refresh</a></button><br><br>
+            {{#connectedOwners}}
+                Name: {{OwnerName}}<br><br>
+                Email address: {{OwnerEmail}}<br><br>
+                <h2 style="font-weight:bold">Current plans</h2>
+                {{#currentPlans}}
+                    Agenda: {{agenda}}<br><br>
+                    Tasks: {{tasks}}<br><br>
+                    Duration: {{from}} to {{to}}<br><br>
+                    Outcome: {{outcome}}<br><br>
+                    <button id="completed"><a href="/confirmComplete/{{OwnerName}}/{{OwnerEmail}}/{{agenda}}/{{tasks}}/{{from}}/{{to}}/{{outcome}}">Completed</a></button><br><br>
+                {{/currentPlans}}
+                {{^currentPlans}}
+                    <p>No available current plans.</p>
+                {{/currentPlans}}
+                <h2 style="font-weight:bold">Past plans</h2>
+                {{#pastPlans}}
+                    Agenda: {{agenda}}<br><br>
+                    Tasks: {{tasks}}<br><br>
+                    Duration: {{from}} to {{to}}<br><br>
+                    Outcome: {{outcome}}<br><br>
+                {{/pastPlans}}
+                {{^pastPlans}}
+                    <p>No past plans.</p>
+                {{/pastPlans}}
+            {{/connectedOwners}}
+            {{^connectedOwners}}
+                <p>No available connected business owners.</p>
+            {{/connectedOwners}}
+        </div><br><br>
     </div>
 </body>
 </html>

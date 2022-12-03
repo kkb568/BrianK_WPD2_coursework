@@ -1,8 +1,41 @@
 #submit {
+    position:relative;
+    left:20%;
     background-color: #353CDD;
     color: white;
     padding: 10px;
     border-color: transparent;
     border-radius: 20px;
     width:150px;
+}
+
+#form-center {
+    margin:0 auto;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 40%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    padding: 2%;
+    box-shadow:#ccc 4px 4px 4px;
+}
+
+@media screen and (max-width:576px) {
+    #form-center {
+        width: 80%;
+        height:auto;
+        padding: 5%;
+    }
+
+    #submit {
+        width:120px;
+    }
+}
+
+@media screen and (max-width:300px) {
+    #form-center button {
+        position: relative;
+        left: 10%;
+    }
 }
