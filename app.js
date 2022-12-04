@@ -18,6 +18,7 @@ app.use(cookieParser());
 const router = require('./appRoutes/appRoutes');
 app.use('/',router);
 
-app.listen(3000, () => {
-    console.log("Application running on port 3000. Press 'ctrl^c' to quit");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Application running on port 3000. Click 'ctrl^c' to quit.");
 });
