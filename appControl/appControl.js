@@ -4,12 +4,9 @@ const appDAO2 = require('../dataConnector/modelPlans');
 const dayjs = require('dayjs');
 const bcrypt = require('bcrypt');
 const alert = require('alert');
-// const db = new appDAO('database/businessOwner.db');
-// const db1 = new appDAO1('database/collaborator.db');
-// const db2 = new appDAO2('database/plans.db');
-const db = new appDAO();
-const db1 = new appDAO1();
-const db2 = new appDAO2();
+const db = new appDAO('database/businessOwner.db');
+const db1 = new appDAO1('database/collaborator.db');
+const db2 = new appDAO2('database/plans.db');
 
 //Route to the homepage.
 exports.landing_page = async(req,res) => {

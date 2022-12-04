@@ -4,8 +4,7 @@ const saltRounds = 10;
 
 class app1 {
     constructor() {
-        this.db = new nedb();
-        // this.db = new nedb({filename:dbFilePath,autoload:true});
+        this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addCollaborator(Name,Email,Business,Category,Services,Password) {

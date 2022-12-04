@@ -4,8 +4,7 @@ const saltRounds = 10;
 
 class app {
     constructor() {
-        this.db = new nedb();
-        // this.db = new nedb({filename:dbFilePath,autoload:true});
+        this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
     addBusinessOwner(Name,Email,Password) {
