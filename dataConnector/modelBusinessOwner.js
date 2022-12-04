@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 class app {
-    constructor() {
+    constructor(dbFilePath) {
         this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 

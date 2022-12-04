@@ -1,7 +1,7 @@
 const nedb = require('nedb');
 
 class app2 {
-    constructor() {
+    constructor(dbFilePath) {
         this.db = new nedb({filename:dbFilePath,autoload:true});
     }
 
